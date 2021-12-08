@@ -11,12 +11,12 @@ std::unique_ptr<ppgso::Shader> Ground::shader;
 
 Ground::Ground() {
     // Scale the default model
-    scale *= 0.2f;
+    scale *= 1000.0f;
 
     // Initialize static resources if needed
     if (!shader) shader = std::make_unique<ppgso::Shader>(diffuse_vert_glsl, diffuse_frag_glsl);
-    if (!texture) texture = std::make_unique<ppgso::Texture>(ppgso::image::loadBMP("castle_texture.bmp"));
-    if (!mesh) mesh = std::make_unique<ppgso::Mesh>("castle.obj");
+    if (!texture) texture = std::make_unique<ppgso::Texture>(ppgso::image::loadBMP("ground_texture.bmp"));
+    if (!mesh) mesh = std::make_unique<ppgso::Mesh>("ground.obj");
 }
 
 bool Ground::update(Scene &scene, float dt) {

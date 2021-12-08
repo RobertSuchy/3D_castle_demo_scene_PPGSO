@@ -18,8 +18,9 @@
 #include "player.h"
 #include "castle.h"
 #include "space.h"
+#include "ground.h"
 
-const unsigned int SIZE = 512;
+const unsigned int SIZE = 1024;
 
 /*!
  * Custom windows for our simple game
@@ -59,8 +60,10 @@ private:
 
         // Add castle to the scene
         auto castle = std::make_unique<Castle>();
+        auto ground = std::make_unique<Ground>();
 //        castle->position.z = 50;
         scene.objects.push_back(move(castle));
+        scene.objects.push_back(move(ground));
     }
 
 public:

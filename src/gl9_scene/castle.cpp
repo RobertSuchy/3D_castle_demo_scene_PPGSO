@@ -13,7 +13,7 @@ std::unique_ptr<ppgso::Shader> Castle::shader;
 
 Castle::Castle() {
     // Scale the default model
-    scale *= 0.2f;
+    scale *= 0.1f;
 
     // Initialize static resources if needed
     if (!shader) shader = std::make_unique<ppgso::Shader>(diffuse_vert_glsl, diffuse_frag_glsl);

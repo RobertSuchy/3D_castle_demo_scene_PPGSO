@@ -17,7 +17,7 @@ void Camera::update() {
     camX = std::sin(glfwGetTime()) * radius;
     camZ = std::cos(glfwGetTime()) * radius;
 //    viewMatrix = lookAt(position, center, up);
-    viewMatrix = lookAt(glm::vec3(camX, 500.0, camZ), glm::vec3(0.0, 0.0, 0.0), glm::vec3(0.0, 1.0, 0.0));
+    viewMatrix = lookAt(glm::vec3(camX, 200.0, camZ), glm::vec3(0.0, 0.0, 0.0), glm::vec3(0.0, 1.0, 0.0));
 }
 
 glm::vec3 Camera::cast(double u, double v) {

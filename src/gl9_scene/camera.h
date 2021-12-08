@@ -12,7 +12,7 @@
  */
 class Camera {
 public:
-    const float radius = 1000.0f;
+    const float radius = 500.0f;
     float camX = 0;
     float camZ = 0;
     glm::vec3 up{0, 1, 0};
