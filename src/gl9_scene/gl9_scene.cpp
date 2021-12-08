@@ -37,8 +37,9 @@ private:
         scene.objects.clear();
 
         // Create a camera
-        auto camera = std::make_unique<Camera>(60.0f, 1.0f, 0.1f, 200.0f);
-//        camera->position.y = 25.0f;
+        auto camera = std::make_unique<Camera>(60.0f, 1.0f, 0.1f, 10000.0f);
+//        camera->position.x = -200.0f;
+//        camera->position.y = 250.0f;
 //        camera->position.z = -150.0f;
         scene.camera = move(camera);
 
