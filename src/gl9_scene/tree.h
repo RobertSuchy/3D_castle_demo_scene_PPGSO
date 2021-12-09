@@ -3,15 +3,17 @@
 
 #include "object.h"
 
+#ifndef PPGSO_TREE_H
+#define PPGSO_TREE_H
 
-class Castle final : public Object {
+class Tree final : public Object {
 private:
     // Static resources (Shared between instances)
     static std::unique_ptr<ppgso::Mesh> mesh;
     static std::unique_ptr<ppgso::Shader> shader;
     static std::unique_ptr<ppgso::Texture> texture;
 
-public:Castle();
+public:Tree();
 
     /*!
      * Update player position considering keyboard inputs
@@ -27,3 +29,6 @@ public:Castle();
      */
     void render(Scene &scene) override;
 };
+
+
+#endif //PPGSO_TREE_H

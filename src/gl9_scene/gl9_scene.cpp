@@ -19,6 +19,7 @@
 #include "castle.h"
 #include "space.h"
 #include "ground.h"
+#include "tree.h"
 
 const unsigned int SIZE = 1024;
 
@@ -38,7 +39,7 @@ private:
         scene.objects.clear();
 
         // Create a camera
-        auto camera = std::make_unique<Camera>(60.0f, 1.0f, 0.1f, 10000.0f);
+        auto camera = std::make_unique<Camera>(60.0f, 1.0f, 0.1f, 50000.0f);
 //        camera->position.x = -200.0f;
 //        camera->position.y = 250.0f;
 //        camera->position.z = -150.0f;
@@ -61,8 +62,51 @@ private:
         // Add castle to the scene
         auto castle = std::make_unique<Castle>();
         auto ground = std::make_unique<Ground>();
+
+        for (int j = 0; j < 50; j++) {
+
+            float positionX = float(rand() % 700) + 200;
+            float positionZ = float(rand() % 700);
+            float positionX1 = float(rand() % 1000) + 100;
+            float positionZ1 = float(rand() % 1000) + 100;
+            float positionX2 = float(rand() % 1000) + 100;
+            float positionZ2 = float(rand() % 1000) + 100;
+            float positionX3 = float(rand() % 1000) + 100;
+            float positionZ3 = float(rand() % 1000) + 100;
+            auto tree = std::make_unique<Tree>();
+            tree->position.x = positionX;
+            tree->position.z = positionZ;
+            scene.objects.push_back(move(tree));
+        }
+        for (int j = 0; j < 50; j++) {
+            float positionX = float(rand() % 700) + 200;
+            float positionZ = float(rand() % 700) + 200;
+            auto tree = std::make_unique<Tree>();
+            tree->position.x = positionX;
+            tree->position.z = -positionZ;
+            scene.objects.push_back(move(tree));
+        }
+        for (int j = 0; j < 50; j++) {
+            float positionX = float(rand() % 700) + 200;
+            float positionZ = float(rand() % 700) + 200;
+            auto tree = std::make_unique<Tree>();
+            tree->position.x = -positionX;
+            tree->position.z = positionZ;
+            scene.objects.push_back(move(tree));
+        }
+        for (int j = 0; j < 50; j++) {
+            float positionX = float(rand() % 700) + 200;
+            float positionZ = float(rand() % 700) + 200;
+            auto tree = std::make_unique<Tree>();
+            tree->position.x = -positionX;
+            tree->position.z = -positionZ;
+            scene.objects.push_back(move(tree));
+        }
+        auto tree = std::make_unique<Tree>();
+//        tree->position.x = 500.0f;
 //        castle->position.z = 50;
         scene.objects.push_back(move(castle));
+//        scene.objects.push_back(move(tree));
         scene.objects.push_back(move(ground));
     }
 
