@@ -40,4 +40,3 @@ void Castle::render(Scene &scene) {
     shader->setUniform("Texture", *texture);
     mesh->render();
 }
-

@@ -3,9 +3,6 @@
 
 #include "object.h"
 
-#ifndef PPGSO_TREE_H
-#define PPGSO_TREE_H
-
 class Tree final : public Object {
 private:
     // Static resources (Shared between instances)
@@ -29,6 +26,3 @@ public:Tree();
      */
     void render(Scene &scene) override;
 };
-
-
-#endif //PPGSO_TREE_H

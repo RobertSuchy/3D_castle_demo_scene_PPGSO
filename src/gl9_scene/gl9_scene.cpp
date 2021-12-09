@@ -20,6 +20,7 @@
 #include "space.h"
 #include "ground.h"
 #include "tree.h"
+#include "fireplace.h"
 
 const unsigned int SIZE = 1024;
 
@@ -31,6 +32,28 @@ private:
     Scene scene;
     bool animate = true;
 
+    void pushTrees(float positionX, float positionZ) {
+        auto tree = std::make_unique<Tree>();
+        tree->position.x = positionX;
+        tree->position.z = positionZ;
+        scene.objects.push_back(move(tree));
+
+        auto tree1 = std::make_unique<Tree>();
+        tree1->position.x = -positionX;
+        tree1->position.z = positionZ;
+        scene.objects.push_back(move(tree1));
+
+        auto tree2 = std::make_unique<Tree>();
+        tree2->position.x = positionX;
+        tree2->position.z = -positionZ;
+        scene.objects.push_back(move(tree2));
+
+        auto tree3 = std::make_unique<Tree>();
+        tree3->position.x = -positionX;
+        tree3->position.z = -positionZ;
+        scene.objects.push_back(move(tree3));
+    }
+
     /*!
      * Reset and initialize the game scene
      * Creating unique smart pointers to objects that are stored in the scene object list
@@ -39,75 +62,42 @@ private:
         scene.objects.clear();
 
         // Create a camera
-        auto camera = std::make_unique<Camera>(60.0f, 1.0f, 0.1f, 50000.0f);
+        auto camera = std::make_unique<Camera>(60.0f, 1.0f, 0.1f, 10000.0f);
 //        camera->position.x = -200.0f;
 //        camera->position.y = 250.0f;
 //        camera->position.z = -150.0f;
         scene.camera = move(camera);
 
-        // Add space background
-//    scene.objects.push_back(std::make_unique<Space>());
 
-
-//        // Add generator to scene
-//        auto generator = std::make_unique<Generator>();
-//        generator->position.y = 10.0f;
-//        scene.objects.push_back(move(generator));
-
-//        // Add player to the scene
-//        auto player = std::make_unique<Player>();
-//        player->position.y = -6;
-//        scene.objects.push_back(move(player));
 
         // Add castle to the scene
         auto castle = std::make_unique<Castle>();
-        auto ground = std::make_unique<Ground>();
-
-        for (int j = 0; j < 50; j++) {
-
-            float positionX = float(rand() % 700) + 200;
-            float positionZ = float(rand() % 700);
-            float positionX1 = float(rand() % 1000) + 100;
-            float positionZ1 = float(rand() % 1000) + 100;
-            float positionX2 = float(rand() % 1000) + 100;
-            float positionZ2 = float(rand() % 1000) + 100;
-            float positionX3 = float(rand() % 1000) + 100;
-            float positionZ3 = float(rand() % 1000) + 100;
-            auto tree = std::make_unique<Tree>();
-            tree->position.x = positionX;
-            tree->position.z = positionZ;
-            scene.objects.push_back(move(tree));
-        }
-        for (int j = 0; j < 50; j++) {
-            float positionX = float(rand() % 700) + 200;
-            float positionZ = float(rand() % 700) + 200;
-            auto tree = std::make_unique<Tree>();
-            tree->position.x = positionX;
-            tree->position.z = -positionZ;
-            scene.objects.push_back(move(tree));
-        }
-        for (int j = 0; j < 50; j++) {
-            float positionX = float(rand() % 700) + 200;
-            float positionZ = float(rand() % 700) + 200;
-            auto tree = std::make_unique<Tree>();
-            tree->position.x = -positionX;
-            tree->position.z = positionZ;
-            scene.objects.push_back(move(tree));
-        }
-        for (int j = 0; j < 50; j++) {
-            float positionX = float(rand() % 700) + 200;
-            float positionZ = float(rand() % 700) + 200;
-            auto tree = std::make_unique<Tree>();
-            tree->position.x = -positionX;
-            tree->position.z = -positionZ;
-            scene.objects.push_back(move(tree));
-        }
-        auto tree = std::make_unique<Tree>();
-//        tree->position.x = 500.0f;
-//        castle->position.z = 50;
         scene.objects.push_back(move(castle));
-//        scene.objects.push_back(move(tree));
+
+        // Add ground to the scene
+        auto ground = std::make_unique<Ground>();
         scene.objects.push_back(move(ground));
+
+        // Add trees to the scene
+        for (int j = 0; j < 50; j++) {
+
+            float positionX = float(rand() % 600) + 250;
+            float positionZ = float(rand() % 600) + 250;
+            pushTrees(positionX, positionZ);
+
+            positionX = float(rand() % 200);
+            positionZ = float(rand() % 1500) + 250;
+            pushTrees(positionX, positionZ);
+
+            positionX = float(rand() % 1500) + 250;
+            positionZ = float(rand() % 200);
+            pushTrees(positionX, positionZ);
+        }
+
+        // Add fireplace to the scene
+        auto fireplace = std::make_unique<Fireplace>();
+        fireplace->position.x = 250;
+        scene.objects.push_back(move(fireplace));
     }
 
 public:
