@@ -13,11 +13,14 @@
 class Camera {
 public:
     float radius = 500.0f;
-    float camX = 4000.0f;
-    float camY = 1000.0f;
-    float camZ = 0.0f;
+    float eyeX = 4000.0f;
+    float eyeY = 1000.0f;
+    float eyeZ = 0.0f;
+    float centerX = 0.0f;
+    float centerY = 0.0f;
+    float centerZ = 0.0f;
     glm::vec3 up{0, 1, 0};
-    glm::vec3 position{camX, 0, camZ};
+    glm::vec3 position{eyeX, 0, eyeZ};
     glm::vec3 back{0, 0, -1};
     glm::vec3 center{0, 0, 0};
 
