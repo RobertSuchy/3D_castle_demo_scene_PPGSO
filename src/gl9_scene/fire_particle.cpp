@@ -15,7 +15,7 @@ std::unique_ptr<ppgso::Shader> FireParticle::shader;
 FireParticle::FireParticle() {
     // Set random scale speed and rotation
     scale *= glm::linearRand(0.5f, 1.0f);
-    speed = {glm::linearRand(-2.0f, 2.0f), glm::linearRand(-5.0f, -10.0f), 0.0f};
+    speed = glm::linearRand(0.8f, 1.2f);
     rotation = glm::ballRand(ppgso::PI);
     rotMomentum = glm::ballRand(ppgso::PI);
 
@@ -32,7 +32,7 @@ bool FireParticle::update(Scene &scene, float dt) {
     // Animate position according to time
 //    position -= speed * dt;
     position.x += std::sin(age * 2) / 100;
-    position.y += 0.075f;
+    position.y += speed * 0.075f;
     position.z += std::sin(age * 2) / 100;
     scale *= 0.998;
     if (position.y > 75) {

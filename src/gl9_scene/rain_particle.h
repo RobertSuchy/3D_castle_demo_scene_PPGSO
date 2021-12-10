@@ -12,7 +12,7 @@
  * It initializes and loads all resources only once
  * It will move down along the Y axis and self delete when reaching below -10
  */
-class FireParticle final : public Object {
+class RainParticle final : public Object {
 private:
     // Static resources (Shared between instances)
     static std::unique_ptr<ppgso::Mesh> mesh;
@@ -23,7 +23,7 @@ private:
     float age{0.0f};
 
     // Speed and rotational momentum
-    float speed;
+    glm::vec3 speed;
     glm::vec3 rotMomentum;
 
     /*!
@@ -36,7 +36,7 @@ private:
      */
 //    void explode(Scene &scene, glm::vec3 explosionPosition, glm::vec3 explosionScale, int pieces);
 
-public: FireParticle();
+public: RainParticle();
 
     /*!
      * Update asteroid
