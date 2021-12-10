@@ -3,7 +3,6 @@
 
 #include "camera.h"
 
-
 Camera::Camera(float fow, float ratio, float near, float far) {
     float fowInRad = (ppgso::PI / 180.0f) * fow;
 
@@ -13,7 +12,7 @@ Camera::Camera(float fow, float ratio, float near, float far) {
 void Camera::update(float dt) {
 //    eyeX = std::sin(glfwGetTime()) * radius;
 //    eyeZ = std::cos(glfwGetTime()) * radius;
-    auto speed = 1;
+    auto speed = 10;
     age += dt;
     // priblíženie sa k hradu
     if (age < 90.0f) {
@@ -25,10 +24,10 @@ void Camera::update(float dt) {
     }
     // rotácia okolo hradu
     else if (age >= 90.0f && !switchScene) {
-        eyeX = std::sin((age * 25) / 180.0f * M_PI) * radius;
-        eyeZ = std::cos((age * 25) / 180.0f * M_PI) * radius;
-//        eyeX = std::sin((age * 101.0f) / 180.0f * M_PI) * radius;
-//        eyeZ = std::cos((age * 101.0f) / 180.0f * M_PI) * radius;
+//        eyeX = std::sin((age * 25) / 180.0f * M_PI) * radius;
+//        eyeZ = std::cos((age * 25) / 180.0f * M_PI) * radius;
+        eyeX = std::sin((age * 101.0f) / 180.0f * M_PI) * radius;
+        eyeZ = std::cos((age * 101.0f) / 180.0f * M_PI) * radius;
         // nastavenie kamery pred bránu
         if (eyeX > 499.9f && eyeZ > 0.0f) {
             switchScene = true;
@@ -69,26 +68,31 @@ void Camera::update(float dt) {
             }
             // pohyb rovno
             else if (eyeX > 10.0f) {
-                eyeX -= 0.1f;
+                eyeX -= 0.1f * speed;
                 eyeY = std::sin(age * 10.0f) * 0.25f + 10.0f;
             }
             // pohyb rovno a vpravo
             else if (eyeX > -50.0f) {
-                eyeX -= 0.1f;
-                eyeZ -= 0.1f;
-                centerZ -= 0.15f;
+                eyeX -= 0.1f * speed;
+                eyeZ -= 0.1f * speed;
+                centerZ -= 0.15f * speed;
                 eyeY = std::sin(age * 10.0f) * 0.25f + 10.0f;
             }
-            else {
+            else if (lookUp) {
                 centerY += 0.1f;
+                if (centerY > 25.0f) {
+                    lookUp = false;
+                }
+            }
+            else if (centerY >= 10.0f) {
+                centerY -= 0.1f;
             }
         }
     }
-////    eyeX = -70;
-////    eyeY = 150;
-////    eyeZ = 0;
-////
-//    viewMatrix = lookAt(glm::vec3(eyeX, eyeY, eyeZ), glm::vec3(-50.0, 50.0, -70.0), glm::vec3(0.0, 1.0, 0.0));
+//    eyeX = -70;
+//    eyeY = 150;
+//    eyeZ = 0;
+//
     viewMatrix = lookAt(glm::vec3(eyeX, eyeY, eyeZ), glm::vec3(centerX, centerY, centerZ), glm::vec3(0.0, 1.0, 0.0));
 }
 

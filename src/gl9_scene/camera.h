@@ -30,6 +30,7 @@ public:
     bool switchScene = false;
     bool lookRight = true;
     bool lookLeft = true;
+    bool lookUp = true;
 
     /*!
      * Create new Camera that will generate viewMatrix and projectionMatrix based on its position, up and back vectors
