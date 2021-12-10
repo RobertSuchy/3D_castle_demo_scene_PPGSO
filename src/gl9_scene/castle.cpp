@@ -38,7 +38,6 @@ void Castle::render(Scene &scene) {
     // render mesh
     shader->setUniform("ModelMatrix", modelMatrix);
     shader->setUniform("Texture", *texture);
-    shader->setUniform("OverallColor", glm::vec3{1, 1, 1});
 
     mesh->render();
 }

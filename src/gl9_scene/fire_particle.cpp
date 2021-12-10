@@ -4,6 +4,9 @@
 #include <shaders/diffuse_vert_glsl.h>
 #include <shaders/diffuse_frag_glsl.h>
 
+#include <shaders/color_vert_glsl.h>
+#include <shaders/color_frag_glsl.h>
+
 // Static resources
 std::unique_ptr<ppgso::Mesh> FireParticle::mesh;
 std::unique_ptr<ppgso::Texture> FireParticle::texture;
@@ -17,8 +20,8 @@ FireParticle::FireParticle() {
     rotMomentum = glm::ballRand(ppgso::PI);
 
     // Initialize static resources if needed
-    if (!shader) shader = std::make_unique<ppgso::Shader>(diffuse_vert_glsl, diffuse_frag_glsl);
-    if (!texture) texture = std::make_unique<ppgso::Texture>(ppgso::image::loadBMP("fire_particle_texture.bmp"));
+    if (!shader) shader = std::make_unique<ppgso::Shader>(color_vert_glsl, color_frag_glsl);
+//    if (!texture) texture = std::make_unique<ppgso::Texture>(ppgso::image::loadBMP("fire_particle_texture.bmp"));
     if (!mesh) mesh = std::make_unique<ppgso::Mesh>("sphere.obj");
 }
 
@@ -112,7 +115,9 @@ void FireParticle::render(Scene &scene) {
 
     // render mesh
     shader->setUniform("ModelMatrix", modelMatrix);
-    shader->setUniform("Texture", *texture);
+//    shader->setUniform("Texture", *texture);
+    shader->setUniform("OverallColor", glm::vec3{0.25, 0.25, 0.25});
+
     mesh->render();
 }
 

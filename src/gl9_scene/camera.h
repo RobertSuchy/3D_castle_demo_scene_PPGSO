@@ -13,7 +13,7 @@
 class Camera {
 public:
     float radius = 500.0f;
-    float eyeX = 1500.0f;
+    float eyeX = 4000.0f;
     float eyeY = 1000.0f;
     float eyeZ = 0.0f;
     float centerX = -50.0f;
