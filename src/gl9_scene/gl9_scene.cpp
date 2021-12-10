@@ -19,6 +19,7 @@
 #include "ground.h"
 #include "tree.h"
 #include "fireplace.h"
+#include "generator.h"
 
 const unsigned int SIZE = 1024;
 
@@ -61,12 +62,7 @@ private:
 
         // Create a camera
         auto camera = std::make_unique<Camera>(60.0f, 1.0f, 0.1f, 10000.0f);
-//        camera->position.x = -200.0f;
-//        camera->position.y = 250.0f;
-//        camera->position.z = -150.0f;
         scene.camera = move(camera);
-
-
 
         // Add castle to the scene
         auto castle = std::make_unique<Castle>();
@@ -78,23 +74,28 @@ private:
 
         // Add trees to the scene
         for (int j = 0; j < 50; j++) {
-            float positionX = float(rand() % 600) + 250;
-            float positionZ = float(rand() % 600) + 250;
+            float positionX = glm::linearRand(250.0f, 850.0f);
+            float positionZ = glm::linearRand(250.0f, 850.0f);
             pushTrees(positionX, positionZ);
 
-            positionX = float(rand() % 200);
-            positionZ = float(rand() % 1500) + 250;
+            positionX = glm::linearRand(0.0f, 200.0f);
+            positionZ = glm::linearRand(250.0f, 1750.0f);
             pushTrees(positionX, positionZ);
 
-            positionX = float(rand() % 1500) + 250;
-            positionZ = float(rand() % 200);
+            positionX = glm::linearRand(250.0f, 1750.0f);
+            positionZ = glm::linearRand(0.0f, 200.0f);
             pushTrees(positionX, positionZ);
         }
 
         // Add fireplace to the scene
         auto fireplace = std::make_unique<Fireplace>();
         fireplace->position.x = -50;
+        fireplace->position.z = -75;
         scene.objects.push_back(move(fireplace));
+
+        auto generator = std::make_unique<Generator>();
+        generator->position.y = 10;
+        scene.objects.push_back(move(generator));
     }
 
 public:

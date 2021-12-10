@@ -13,8 +13,8 @@ Camera::Camera(float fow, float ratio, float near, float far) {
 void Camera::update(float dt) {
 //        camX = std::sin(glfwGetTime()) * radius;
 //        camZ = std::cos(glfwGetTime()) * radius;
-    auto speed = 1;
-    age += dt * speed;
+    auto speed = 100;
+    age += dt;
     if (age < 90.0f) {
         camX -= 1.0f * speed;
         camY -= 0.20f * speed;
@@ -28,14 +28,19 @@ void Camera::update(float dt) {
         if (camX > 499.9f && camZ > 0) {
             switchScene = true;
             camX = 200;
-            camY = 25;
+            camY = 10;
             camZ = 15;
         }
     }
-    else {
-
+    else if ( age > 91.0f) {
+        camX -= 0.1;
+        camY = std::sin(age * 10) * 0.25 + 10;
     }
-
+//    camX = -70;
+//    camY = 150;
+//    camZ = 0;
+//
+//    viewMatrix = lookAt(glm::vec3(camX, camY, camZ), glm::vec3(-50.0, 50.0, -70.0), glm::vec3(0.0, 1.0, 0.0));
     viewMatrix = lookAt(glm::vec3(camX, camY, camZ), glm::vec3(0.0, 0.0, 0.0), glm::vec3(0.0, 1.0, 0.0));
 }
 
