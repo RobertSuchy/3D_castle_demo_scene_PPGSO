@@ -28,6 +28,8 @@ public:
     glm::mat4 projectionMatrix;
     float age{0.0f};
     bool switchScene = false;
+    bool lookRight = true;
+    bool lookLeft = true;
 
     /*!
      * Create new Camera that will generate viewMatrix and projectionMatrix based on its position, up and back vectors

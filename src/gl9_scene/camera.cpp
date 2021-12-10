@@ -13,37 +13,68 @@ Camera::Camera(float fow, float ratio, float near, float far) {
 void Camera::update(float dt) {
 //        eyeX = std::sin(glfwGetTime()) * radius;
 //        eyeZ = std::cos(glfwGetTime()) * radius;
-    auto speed = 100;
+    auto speed = 10;
     age += dt;
+    // priblíženie sa k hradu
     if (age < 90.0f) {
-        eyeX -= 1.0f * speed;
-        eyeY -= 0.20f * speed;
+        eyeX -= 2.0f * speed;
+        eyeY -= 0.40f * speed;
         if (eyeX < 501.0f) {
             age = 90.0f;
         }
     }
+    // rotácia okolo hradu
     else if (age >= 90.0f && !switchScene) {
 //        eyeX = std::sin((age * 13) / 180.0f * M_PI) * radius;
 //        eyeZ = std::cos((age * 13) / 180.0f * M_PI) * radius;
         eyeX = std::sin((age * 101.0f) / 180.0f * M_PI) * radius;
         eyeZ = std::cos((age * 101.0f) / 180.0f * M_PI) * radius;
+        // nastavenie kamery pred bránu
         if (eyeX > 499.9f && eyeZ > 0.0f) {
             switchScene = true;
             eyeX = 200.0f;
-            eyeY = 10.0f;
+            eyeY = centerY = 10.0f;
             eyeZ = centerZ = 15.0f;
         }
     }
+    // chôdza cez bránu
     else if (age > 90.0f) {
-        if (eyeX > 100.0f) {
-            eyeX -= 0.1f;
+        if (eyeX > 110.0f) {
+            eyeX -= 0.1f * speed;
             eyeY = std::sin(age * 10.0f) * 0.25f + 10.0f;
         }
         else {
 //            eyeZ += 0.1f;
 //            centerZ += 0.1f;
-            if (centerX < 90.0f) {
-                centerX += 0.25f;
+            // pohľad vpravo
+            if (lookRight) {
+                centerZ -= 1.0f * speed;
+                if (centerZ < -85.0f) {
+                    lookRight = false;
+                }
+            }
+            // pohľad vľavo
+            else if (lookLeft) {
+                centerZ += 1.0f * speed;
+                if (centerZ > 85.0f) {
+                    lookLeft = false;
+                }
+            }
+            // pohyb vľavo
+            else if (eyeX > 70.0f && eyeZ < 55.0f ) {
+                eyeX -= 0.1f * speed;
+                eyeZ += 0.1f * speed;
+                eyeY = std::sin(age * 10.0f) * 0.25f + 10.0f;
+                centerZ -= 0.075f * speed;
+            }
+            else if (eyeX > 20.0f){
+                eyeX -= 0.1f * speed;
+                eyeY = std::sin(age * 10.0f) * 0.25f + 10.0f;
+            }
+            else if (eyeX > -20.0f){
+                eyeX -= 0.1f;
+                eyeZ -= 0.1f;
+                eyeY = std::sin(age * 10.0f) * 0.25f + 10.0f;
                 centerZ -= 0.25f;
             }
         }
