@@ -20,6 +20,7 @@
 #include "tree.h"
 #include "fireplace.h"
 #include "generator.h"
+#include "background.h"
 
 const unsigned int SIZE = 1024;
 
@@ -61,7 +62,7 @@ private:
         scene.objects.clear();
 
         // Create a camera
-        auto camera = std::make_unique<Camera>(60.0f, 1.0f, 0.1f, 10000.0f);
+        auto camera = std::make_unique<Camera>(60.0f, 1.0f, 0.1f, 15000.0f);
         scene.camera = move(camera);
 
         // Add castle to the scene
@@ -73,9 +74,10 @@ private:
         scene.objects.push_back(move(ground));
 
         // Add trees to the scene
+        float positionX, positionZ;
         for (int j = 0; j < 50; j++) {
-            float positionX = glm::linearRand(250.0f, 850.0f);
-            float positionZ = glm::linearRand(250.0f, 850.0f);
+            positionX = glm::linearRand(250.0f, 850.0f);
+            positionZ = glm::linearRand(250.0f, 850.0f);
             pushTrees(positionX, positionZ);
 
             positionX = glm::linearRand(0.0f, 200.0f);
@@ -93,8 +95,11 @@ private:
         fireplace->position.z = -75;
         scene.objects.push_back(move(fireplace));
 
+        auto background = std::make_unique<Background>();
+        scene.objects.push_back(move(background));
+
         auto generator = std::make_unique<Generator>();
-        generator->position.y = 10;
+//        generator->position.y = 10;
         scene.objects.push_back(move(generator));
     }
 
