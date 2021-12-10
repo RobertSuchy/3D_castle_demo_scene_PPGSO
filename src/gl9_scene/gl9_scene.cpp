@@ -14,8 +14,6 @@
 
 #include "camera.h"
 #include "scene.h"
-#include "generator.h"
-#include "player.h"
 #include "castle.h"
 #include "space.h"
 #include "ground.h"
@@ -80,7 +78,6 @@ private:
 
         // Add trees to the scene
         for (int j = 0; j < 50; j++) {
-
             float positionX = float(rand() % 600) + 250;
             float positionZ = float(rand() % 600) + 250;
             pushTrees(positionX, positionZ);
@@ -96,7 +93,7 @@ private:
 
         // Add fireplace to the scene
         auto fireplace = std::make_unique<Fireplace>();
-        fireplace->position.x = 250;
+        fireplace->position.x = -50;
         scene.objects.push_back(move(fireplace));
     }
 

@@ -11,7 +11,7 @@ std::unique_ptr<ppgso::Shader> Fireplace::shader;
 
 Fireplace::Fireplace() {
     // Scale the default model
-    scale *= 2.0f;
+    scale *= 0.5f;
 
     // Initialize static resources if needed
     if (!shader) shader = std::make_unique<ppgso::Shader>(diffuse_vert_glsl, diffuse_frag_glsl);

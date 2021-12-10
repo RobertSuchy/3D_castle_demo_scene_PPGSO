@@ -10,14 +10,33 @@ Camera::Camera(float fow, float ratio, float near, float far) {
     projectionMatrix = glm::perspective(fowInRad, ratio, near, far);
 }
 
-void Camera::update() {
-//  viewMatrix = lookAt(position, position-back, up);
-//    position.x = std::sin(time) * 3;
-//    viewMatrix = lookAt(position, position - back, up);
-    camX = std::sin(glfwGetTime()) * radius;
-    camZ = std::cos(glfwGetTime()) * radius;
-//    viewMatrix = lookAt(position, center, up);
-    viewMatrix = lookAt(glm::vec3(camX, 300.0, camZ), glm::vec3(0.0, 0.0, 0.0), glm::vec3(0.0, 1.0, 0.0));
+void Camera::update(float dt) {
+//        camX = std::sin(glfwGetTime()) * radius;
+//        camZ = std::cos(glfwGetTime()) * radius;
+    auto speed = 1;
+    age += dt * speed;
+    if (age < 90.0f) {
+        camX -= 1.0f * speed;
+        camY -= 0.20f * speed;
+        if (camX < 501.0f) {
+            age = 90.0f;
+        }
+    }
+    else if (age >= 90.0f && !switchScene) {
+        camX = std::sin((age * 13) / 180.0f * M_PI) * radius;
+        camZ = std::cos((age * 13) / 180.0f * M_PI) * radius;
+        if (camX > 499.9f && camZ > 0) {
+            switchScene = true;
+            camX = 200;
+            camY = 25;
+            camZ = 15;
+        }
+    }
+    else {
+
+    }
+
+    viewMatrix = lookAt(glm::vec3(camX, camY, camZ), glm::vec3(0.0, 0.0, 0.0), glm::vec3(0.0, 1.0, 0.0));
 }
 
 glm::vec3 Camera::cast(double u, double v) {

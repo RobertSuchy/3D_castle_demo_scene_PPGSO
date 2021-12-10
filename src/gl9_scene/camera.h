@@ -12,9 +12,10 @@
  */
 class Camera {
 public:
-    const float radius = 500.0f;
-    float camX = 0;
-    float camZ = 0;
+    float radius = 500.0f;
+    float camX = 4000.0f;
+    float camY = 1000.0f;
+    float camZ = 0.0f;
     glm::vec3 up{0, 1, 0};
     glm::vec3 position{camX, 0, camZ};
     glm::vec3 back{0, 0, -1};
@@ -22,6 +23,8 @@ public:
 
     glm::mat4 viewMatrix;
     glm::mat4 projectionMatrix;
+    float age{0.0f};
+    bool switchScene = false;
 
     /*!
      * Create new Camera that will generate viewMatrix and projectionMatrix based on its position, up and back vectors
@@ -35,7 +38,7 @@ public:
     /*!
      * Update Camera viewMatrix based on up, position and back vectors
      */
-    void update();
+    void update(float dt);
 
     /*!
      * Get direction vector in world coordinates through camera projection plane
