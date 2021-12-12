@@ -36,7 +36,8 @@ private:
      */
 //    void explode(Scene &scene, glm::vec3 explosionPosition, glm::vec3 explosionScale, int pieces);
 
-public: FireParticle();
+public:
+    FireParticle();
 
     /*!
      * Update asteroid
@@ -56,7 +57,5 @@ public: FireParticle();
      * Custom click event for asteroid
      */
 //    void onClick(Scene &scene) override;
-
-private:
 };
 

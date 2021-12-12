@@ -12,7 +12,7 @@ Camera::Camera(float fow, float ratio, float near, float far) {
 void Camera::update(float dt) {
 //    eyeX = std::sin(glfwGetTime()) * radius;
 //    eyeZ = std::cos(glfwGetTime()) * radius;
-    auto speed = 10;
+    auto speed = 1;
     age += dt;
     // priblíženie sa k hradu
     if (age < 90.0f) {
@@ -24,10 +24,10 @@ void Camera::update(float dt) {
     }
     // rotácia okolo hradu
     else if (age >= 90.0f && !switchScene) {
-//        eyeX = std::sin((age * 25) / 180.0f * M_PI) * radius;
-//        eyeZ = std::cos((age * 25) / 180.0f * M_PI) * radius;
-        eyeX = std::sin((age * 101.0f) / 180.0f * M_PI) * radius;
-        eyeZ = std::cos((age * 101.0f) / 180.0f * M_PI) * radius;
+        eyeX = std::sin((age * 25) / 180.0f * M_PI) * radius;
+        eyeZ = std::cos((age * 25) / 180.0f * M_PI) * radius;
+//        eyeX = std::sin((age * 101.0f) / 180.0f * M_PI) * radius;
+//        eyeZ = std::cos((age * 101.0f) / 180.0f * M_PI) * radius;
         // nastavenie kamery pred bránu
         if (eyeX > 499.9f && eyeZ > 0.0f) {
             switchScene = true;
@@ -92,7 +92,7 @@ void Camera::update(float dt) {
 //    eyeX = -70;
 //    eyeY = 150;
 //    eyeZ = 0;
-//
+
     viewMatrix = lookAt(glm::vec3(eyeX, eyeY, eyeZ), glm::vec3(centerX, centerY, centerZ), glm::vec3(0.0, 1.0, 0.0));
 }
 

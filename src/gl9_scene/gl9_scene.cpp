@@ -21,6 +21,7 @@
 #include "fireplace.h"
 #include "generator.h"
 #include "background.h"
+#include "flag.h"
 
 const unsigned int SIZE = 1024;
 
@@ -99,8 +100,14 @@ private:
         scene.objects.push_back(move(background));
 
         auto generator = std::make_unique<Generator>();
-//        generator->position.y = 10;
+        //generator->position.y = 10;
         scene.objects.push_back(move(generator));
+
+        auto flag = std::make_unique<Flag>();
+        flag->position.x = -100;
+        flag->position.y = 90;
+        flag->position.z = 105;
+        scene.objects.push_back(move(flag));
     }
 
 public:
