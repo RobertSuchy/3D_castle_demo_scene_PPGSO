@@ -12,7 +12,7 @@ Camera::Camera(float fow, float ratio, float near, float far) {
 void Camera::update(float dt) {
 //    eyeX = std::sin(glfwGetTime()) * radius;
 //    eyeZ = std::cos(glfwGetTime()) * radius;
-    age += dt * 10;
+    age += dt * 1.0;
 
     // priblíženie sa k hradu
     if (age <= approachTime) {
@@ -147,7 +147,9 @@ void Camera::update(float dt) {
     else if (age <= 60.0f) {
         points = {
                 glm::vec3 {0.0f, 10.0f, -100.0f},
-                glm::vec3 {0.0f, 100.0f, -100.0f},
+                glm::vec3 {10.0f, 80.0f, -100.0f},
+                glm::vec3 {25.0f, 150.0f, -100.0f},
+                glm::vec3 {10.0f, 80.0f, -100.0f},
                 glm::vec3 {0.0f, 10.0f, -100.0f}
         };
         center = bezierPoint(points, ((float) age - 53.0f) / 7.0f);

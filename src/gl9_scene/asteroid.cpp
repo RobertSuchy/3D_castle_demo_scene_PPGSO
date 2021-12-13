@@ -2,6 +2,7 @@
 #include "asteroid.h"
 #include "ground.h"
 #include "explosion.h"
+#include "castle.h"
 
 #include <shaders/diffuse_vert_glsl.h>
 #include <shaders/diffuse_frag_glsl.h>
@@ -31,7 +32,7 @@ bool Asteroid::update(Scene &scene, float dt) {
     age += dt;
 
     // Animate position according to time
-    position += speed * (dt/2);
+    position += speed * (dt / 2);
 
     // Rotate the object
     rotation += rotMomentum * (dt / 5);
@@ -45,15 +46,16 @@ bool Asteroid::update(Scene &scene, float dt) {
         if (obj.get() == this) continue;
 
         // We only need to collide with asteroids and projectiles, ignore other objects
-        auto asteroid = dynamic_cast<Asteroid *>(obj.get()); // dynamic_pointer_cast<Asteroid>(obj);
+//        auto asteroid = dynamic_cast<Asteroid *>(obj.get()); // dynamic_pointer_cast<Asteroid>(obj);
         auto ground = dynamic_cast<Ground *>(obj.get()); //dynamic_pointer_cast<Projectile>(obj);
-        if (!asteroid && !ground) continue;
+//        if (!asteroid && !ground) continue;
+        if (!ground) continue;
 
 //        // When colliding with other asteroids make sure the object is older than .5s
 //        // This prevents excessive collisions when asteroids explode.
 
         // Compare distance to approximate size of the asteroid estimated from scale.
-        if (distance(position, obj->position) < (obj->scale.y + scale.y) * 0.2f) {
+        if (distance(position, obj->position) < (obj->scale.y + scale.y) * 1.0f) {
 //            int pieces = 3;
 //
 //            // Too small to split into pieces
@@ -64,7 +66,7 @@ bool Asteroid::update(Scene &scene, float dt) {
 
             // Generate smaller asteroids
             explode(scene, (obj->position + position) / 2.0f, (obj->scale + scale) / 2.0f);
-//            if (asteroid && age < 2.0f){
+//            if (asteroid && age < 5.0f) {
 //                return false;
 //            }
 
@@ -86,10 +88,10 @@ void Asteroid::reproduce(Scene &scene) {
     for (int i = 0; i < 5; i++) {
         auto obj = std::make_unique<Asteroid>();
         obj->position = position;
-//        obj->position.y += 1000.0f;
+        obj->position.y += 1000.0f;
         obj->position.x += glm::linearRand(-1000.0f, 1000.0f);
         obj->position.z += glm::linearRand(-1000.0f, 1000.0f);
-        obj->scale = scale / 5.0f;
+//        obj->scale = scale / 5.0f;
         scene.objects.push_back(move(obj));
 //        auto asteroid = std::make_unique<Asteroid>();
 //        asteroid->speed = speed + glm::vec3(glm::linearRand(-3.0f, 3.0f), glm::linearRand(0.0f, -5.0f), 0.0f);;
