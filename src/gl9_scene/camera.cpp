@@ -12,103 +12,173 @@ Camera::Camera(float fow, float ratio, float near, float far) {
 void Camera::update(float dt) {
 //    eyeX = std::sin(glfwGetTime()) * radius;
 //    eyeZ = std::cos(glfwGetTime()) * radius;
-    auto speed = 10;
     age += dt;
+
     // priblíženie sa k hradu
-    if (age < 90.0f) {
-        eyeX -= 4.0f * speed;
-        eyeY -= 0.8f * speed;
-        if (eyeX < 501.0f) {
-            age = 90.0f;
-        }
+    if (age <= approachTime) {
+        points = {
+                glm::vec3 {radius + 3000.0f, 1000.0f, 0.0f},
+                glm::vec3 {radius + 2000.0f, 600.0f, 0.0f},
+                glm::vec3 {radius + 1000.0f, 400.0f, 0.0f},
+                glm::vec3 {radius, 250.0f, 0.0f}
+        };
+        eye = bezierPoint(points, ((float) age) / approachTime);
     }
-    // rotácia okolo hradu
-    else if (age >= 90.0f && !switchScene) {
-//        eyeX = std::sin((age * 25) / 180.0f * M_PI) * radius;
-//        eyeZ = std::cos((age * 25) / 180.0f * M_PI) * radius;
-        eyeX = std::sin((age * 101.0f) / 180.0f * M_PI) * radius;
-        eyeZ = std::cos((age * 101.0f) / 180.0f * M_PI) * radius;
-        // nastavenie kamery pred bránu
-        if (eyeX > 499.9f && eyeZ > 0.0f) {
-            switchScene = true;
-            eyeX = 200.0f;
-            eyeY = centerY = 10.0f;
-            eyeZ = centerZ = 15.0f;
-        }
+    // rotácia okolo hradu 1/4
+    else if (age <= approachTime + quarterTime) {
+        points = {
+                glm::vec3 {radius, 250.0f, 0.0f},
+                glm::vec3 {radius * std::sin(M_PI / 3.0f), 250.0f, -radius * std::sin(M_PI / 6.0f)},
+                glm::vec3 {radius * std::sin(M_PI / 6.0f), 250.0f, -radius * std::sin(M_PI / 3.0f)},
+                glm::vec3 {0.0f, 250.0f, -radius}
+        };
+        eye = bezierPoint(points, ((float) age - approachTime) / quarterTime);
+    }
+    // rotácia okolo hradu 2/4
+    else if (age <= approachTime + 2 * quarterTime) {
+        points = {
+                glm::vec3 {0.0f, 250.0f, -radius},
+                glm::vec3 {-radius * std::sin(M_PI / 6.0f), 250.0f, -radius * std::sin(M_PI / 3.0f)},
+                glm::vec3 {-radius * std::sin(M_PI / 3.0f), 250.0f, -radius * std::sin(M_PI / 6.0f)},
+                glm::vec3 {-radius, 250.0f, 0.0f}
+        };
+        eye = bezierPoint(points, ((float) age - (approachTime + quarterTime)) / quarterTime);
+    }
+    // rotácia okolo hradu 3/4
+    else if (age <= approachTime + 3 * quarterTime) {
+        points = {
+                glm::vec3 {-radius, 250.0f, 0.0f},
+                glm::vec3 {-radius * std::sin(M_PI / 3.0f), 250.0f, radius * std::sin(M_PI / 6.0f)},
+                glm::vec3 {-radius * std::sin(M_PI / 6.0f), 250.0f, radius * std::sin(M_PI / 3.0f)},
+                glm::vec3 {0.0f, 250.0f, radius}
+        };
+        eye = bezierPoint(points, ((float) age - (approachTime + 2 * quarterTime)) / quarterTime);
+    }
+    // rotácia okolo hradu 4/4
+    else if (age <= approachTime + 4 * quarterTime) {
+        points = {
+                glm::vec3 {0.0f, 250.0f, radius},
+                glm::vec3 {radius * std::sin(M_PI / 6.0f), 250.0f, radius * std::sin(M_PI / 3.0f)},
+                glm::vec3 {radius * std::sin(M_PI / 3.0f), 250.0f, radius * std::sin(M_PI / 6.0f)},
+                glm::vec3 {radius, 250.0f, 0.0f}
+        };
+        eye = bezierPoint(points, ((float) age - (approachTime + 3 * quarterTime)) / quarterTime);
+    }
+    // nastavenie kamery pred bránu
+    else if (switchScene) {
+        eye.x = 220.0f;
+        eye.y = center.y = 10.0f;
+        eye.z = center.z = 15.0f;
+        switchScene = false;
     }
     // chôdza cez bránu
-    else if (age > 90.0f) {
-        if (eyeX > 110.0f) {
-            eyeX -= 0.1f * speed;
-            eyeY = std::sin(age * 10.0f) * 0.25f + 10.0f;
-        }
-        else {
-//            eyeZ += 0.1f;
-//            centerZ += 0.1f;
-            // pohľad vpravo
-            if (lookRight) {
-                centerZ -= 1.0f * speed;
-                if (centerZ < -85.0f) {
-                    lookRight = false;
-                }
-            }
-            // pohľad vľavo
-            else if (lookLeft) {
-                centerZ += 1.0f * speed;
-                if (centerZ > 80.0f) {
-                    lookLeft = false;
-                }
-            }
-            // pohyb rovno a vľavo
-            else if (eyeX > 70.0f && eyeZ < 55.0f ) {
-                eyeX -= 0.1f * speed;
-                eyeZ += 0.1f * speed;
-                eyeY = std::sin(age * 10.0f) * 0.25f + 10.0f;
-                centerZ -= 0.075f * speed;
-            }
-            // pohyb rovno
-            else if (eyeX > 10.0f) {
-                eyeX -= 0.1f * speed;
-                eyeY = std::sin(age * 10.0f) * 0.25f + 10.0f;
-            }
-            // pohyb rovno a vpravo
-            else if (eyeX > -50.0f) {
-                eyeX -= 0.1f * speed;
-                eyeZ -= 0.1f * speed;
-                centerZ -= 0.15f * speed;
-                eyeY = std::sin(age * 10.0f) * 0.25f + 10.0f;
-            }
-            else if (lookUp) {
-                centerY += 0.1f;
-                if (centerY > 25.0f) {
-                    lookUp = false;
-                }
-            }
-            else if (centerY >= 10.0f) {
-                centerY -= 0.1f;
-            }
-        }
+    else if (age <= 30.0f) {
+        points = {
+                glm::vec3 {220.0f, 10.0f, 15.0f},
+                glm::vec3 {160.0f, 10.0f, 15.0f}
+        };
+        eye = bezierPoint(points, ((float) age - 25.0f) / 5.0f);
+        eye.y = std::sin(age * 10.0f) * 0.25f + 10.0f;
     }
-//    eyeX = -70;
-//    eyeY = 150;
-//    eyeZ = 0;
-//
-    viewMatrix = lookAt(glm::vec3(eyeX, eyeY, eyeZ), glm::vec3(centerX, centerY, centerZ), glm::vec3(0.0, 1.0, 0.0));
+    // pohľad vpravo
+    else if (age <= 32.0f) {
+        points = {
+                glm::vec3 {0.0f, 10.0f, 15.0f},
+                glm::vec3 {0.0f, 10.0f, -85.0f}
+        };
+        center = bezierPoint(points, ((float) age - 30.0f) / 2.0f);
+    }
+    // pohľad vľavo
+    else if (age <= 35.5f) {
+        points = {
+                glm::vec3 {0.0f, 10.0f, -85.0f},
+                glm::vec3 {0.0f, 10.0f, 85.0f}
+        };
+        center = bezierPoint(points, ((float) age - 32.0f) / 3.5f);
+    }
+    // pohyb šikmo vľavo
+    else if (age <= 40.0f) {
+        points = {
+                glm::vec3 {160.0f, 10.0f, 15.0f},
+                glm::vec3 {150.0f, 10.0f, 35.0f},
+                glm::vec3 {120.0f, 10.0f, 55.0f}
+        };
+        eye = bezierPoint(points, ((float) age - 35.5f) / 4.5f);
+        eye.y = std::sin(age * 10.0f) * 0.25f + 10.0f;
+        points = {
+                glm::vec3 {0.0f, 10.0f, 85.0f},
+                glm::vec3 {0.0f, 10.0f, 55.0f}
+        };
+        center = bezierPoint(points, ((float) age - 35.5f) / 4.5f);
+    }
+    // pohyb rovno
+    else if (age <= 45.0f) {
+        points = {
+                glm::vec3 {120.0f, 10.0f, 55.0f},
+                glm::vec3 {60.0f, 10.0f, 55.0f}
+        };
+        eye = bezierPoint(points, ((float) age - 40.0f) / 5.0f);
+        eye.y = std::sin(age * 10.0f) * 0.25f + 10.0f;
+    }
+    // pohybb šikmo vpravo
+    else if (age <= 50.0f) {
+        points = {
+                glm::vec3 {60.0f, 10.0f, 55.0f},
+                glm::vec3 {20.0f, 10.0f, 35.0f},
+                glm::vec3 {0.0f, 10.0f, 0.0f}
+        };
+        eye = bezierPoint(points, ((float) age - 45.0f) / 5.0f);
+        eye.y = std::sin(age * 10.0f) * 0.25f + 10.0f;
+        points = {
+                glm::vec3 {0.0f, 10.0f, 55.0f},
+                glm::vec3 {0.0f, 10.0f, -100.0f}
+        };
+        center = bezierPoint(points, ((float) age - 45.0f) / 5.0f);
+    }
+    else if (age <= 53.0f) {
+        points = {
+                glm::vec3{0.0f, 10.0f, 0.0f},
+                glm::vec3{0.0f, 10.0f, -36.0f}
+        };
+        eye = bezierPoint(points, ((float) age - 50.0f) / 3.0f);
+        eye.y = std::sin(age * 10.0f) * 0.25f + 10.0f;
+    }
+    // pohľad hore a späť
+    else if (age <= 60.0f) {
+        points = {
+                glm::vec3 {0.0f, 10.0f, -100.0f},
+                glm::vec3 {0.0f, 100.0f, -100.0f},
+                glm::vec3 {0.0f, 10.0f, -100.0f}
+        };
+        center = bezierPoint(points, ((float) age - 53.0f) / 7.0f);
+    }
+    viewMatrix = lookAt(eye, center, glm::vec3(0.0, 1.0, 0.0));
 }
 
-glm::vec3 Camera::cast(double u, double v) {
-    // Create point in Screen coordinates
-    glm::vec4 screenPosition{u, v, 0.0f, 1.0f};
+//glm::vec3 Camera::cast(double u, double v) {
+//    // Create point in Screen coordinates
+//    glm::vec4 screenPosition{u, v, 0.0f, 1.0f};
+//
+//    // Use inverse matrices to get the point in world coordinates
+//    auto invProjection = glm::inverse(projectionMatrix);
+//    auto invView = glm::inverse(viewMatrix);
+//
+//    // Compute position on the camera plane
+//    auto planePosition = invView * invProjection * screenPosition;
+//    planePosition /= planePosition.w;
+//
+//    // Create direction vector
+//    auto direction = glm::normalize(planePosition - glm::vec4{position, 1.0f});
+//    return glm::vec3{direction};
+//}
 
-    // Use inverse matrices to get the point in world coordinates
-    auto invProjection = glm::inverse(projectionMatrix);
-    auto invView = glm::inverse(viewMatrix);
-
-    // Compute position on the camera plane
-    auto planePosition = invView * invProjection * screenPosition;
-    planePosition /= planePosition.w;
-
-    // Create direction vector
-    auto direction = glm::normalize(planePosition - glm::vec4{position, 1.0f});
-    return glm::vec3{direction};
+glm::vec3 Camera::bezierPoint(std::vector<glm::vec3> points, const float t) {
+    for (int i = 0; i < points.size() - 1; i++) {
+        for (int j = 0; j < points.size() - 1 - i; j++) {
+            points[j] = glm::vec3{points[j].x + (points[j + 1].x - points[j].x) * t,
+                                  points[j].y + (points[j + 1].y - points[j].y) * t,
+                                  points[j].z + (points[j + 1].z - points[j].z) * t};
+        }
+    }
+    return {points[0]};
 }

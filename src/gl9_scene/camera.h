@@ -12,25 +12,17 @@
  */
 class Camera {
 public:
+    const float approachTime = 10.0f;
+    const float quarterTime = 3.75f;
+    glm::vec3 eye = { 4000.0f, 1000.0f, 0.0f};
+    glm::vec3 center = { 0.0f, 0.0f, 0.0f};
+    std::vector<glm::vec3> points;
     float radius = 500.0f;
-    float eyeX = 4000.0f;
-    float eyeY = 1000.0f;
-    float eyeZ = 0.0f;
-    float centerX = -50.0f;
-    float centerY = 0.0f;
-    float centerZ = 0.0f;
-    glm::vec3 up{0, 1, 0};
-    glm::vec3 position{eyeX, 0, eyeZ};
-    glm::vec3 back{0, 0, -1};
-    glm::vec3 center{0, 0, 0};
 
     glm::mat4 viewMatrix;
     glm::mat4 projectionMatrix;
     float age{0.0f};
-    bool switchScene = false;
-    bool lookRight = true;
-    bool lookLeft = true;
-    bool lookUp = true;
+    bool switchScene = true;
 
     /*!
      * Create new Camera that will generate viewMatrix and projectionMatrix based on its position, up and back vectors
@@ -53,5 +45,7 @@ public:
      * @return Normalized vector from camera position to position on the camera projection plane
      */
     glm::vec3 cast(double u, double v);
+
+    glm::vec3 bezierPoint(std::vector<glm::vec3> points, float t);
 };
 
