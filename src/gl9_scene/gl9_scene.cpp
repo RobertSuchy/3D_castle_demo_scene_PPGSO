@@ -22,6 +22,7 @@
 #include "generator.h"
 #include "background.h"
 #include "flag.h"
+#include "asteroid.h"
 
 const unsigned int SIZE = 1024;
 
@@ -67,47 +68,54 @@ private:
         scene.camera = move(camera);
 
         // Add castle to the scene
-        auto castle = std::make_unique<Castle>();
-        scene.objects.push_back(move(castle));
-
+//        auto castle = std::make_unique<Castle>();
+//        scene.objects.push_back(move(castle));
+//
         // Add ground to the scene
         auto ground = std::make_unique<Ground>();
         scene.objects.push_back(move(ground));
+//
+//        // Add trees to the scene
+//        float positionX, positionZ;
+//        for (int j = 0; j < 50; j++) {
+//            positionX = glm::linearRand(250.0f, 850.0f);
+//            positionZ = glm::linearRand(250.0f, 850.0f);
+//            pushTrees(positionX, positionZ);
+//
+//            positionX = glm::linearRand(0.0f, 200.0f);
+//            positionZ = glm::linearRand(250.0f, 1750.0f);
+//            pushTrees(positionX, positionZ);
+//
+//            positionX = glm::linearRand(250.0f, 1750.0f);
+//            positionZ = glm::linearRand(0.0f, 200.0f);
+//            pushTrees(positionX, positionZ);
+//        }
+//
+//        // Add fireplace to the scene
+//        auto fireplace = std::make_unique<Fireplace>();
+//        fireplace->position.x = -50;
+//        fireplace->position.z = -75;
+//        scene.objects.push_back(move(fireplace));
+//
+//        auto background = std::make_unique<Background>();
+//        scene.objects.push_back(move(background));
 
-        // Add trees to the scene
-        float positionX, positionZ;
-        for (int j = 0; j < 50; j++) {
-            positionX = glm::linearRand(250.0f, 850.0f);
-            positionZ = glm::linearRand(250.0f, 850.0f);
-            pushTrees(positionX, positionZ);
+//        auto generator = std::make_unique<Generator>();
+//        //generator->position.y = 10;
+//        scene.objects.push_back(move(generator));
 
-            positionX = glm::linearRand(0.0f, 200.0f);
-            positionZ = glm::linearRand(250.0f, 1750.0f);
-            pushTrees(positionX, positionZ);
+        auto obj = std::make_unique<Asteroid>();
+        obj->position.x = -50;
+        obj->position.y = 2000;
+        obj->position.z = -75;
+//        obj->position.x += glm::linearRand(-20.0f, 20.0f);
+        scene.objects.push_back(move(obj));
 
-            positionX = glm::linearRand(250.0f, 1750.0f);
-            positionZ = glm::linearRand(0.0f, 200.0f);
-            pushTrees(positionX, positionZ);
-        }
-
-        // Add fireplace to the scene
-        auto fireplace = std::make_unique<Fireplace>();
-        fireplace->position.x = -50;
-        fireplace->position.z = -75;
-        scene.objects.push_back(move(fireplace));
-
-        auto background = std::make_unique<Background>();
-        scene.objects.push_back(move(background));
-
-        auto generator = std::make_unique<Generator>();
-        //generator->position.y = 10;
-        scene.objects.push_back(move(generator));
-
-        auto flag = std::make_unique<Flag>();
-        flag->position.x = -100;
-        flag->position.y = 90;
-        flag->position.z = 105;
-        scene.objects.push_back(move(flag));
+//        auto flag = std::make_unique<Flag>();
+//        flag->position.x = -100;
+//        flag->position.y = 90;
+//        flag->position.z = 105;
+//        scene.objects.push_back(move(flag));
     }
 
 public:
