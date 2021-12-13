@@ -14,8 +14,13 @@ class Camera {
 public:
     const float approachTime = 10.0f;
     const float quarterTime = 3.75f;
-    glm::vec3 eye = { 4000.0f, 1000.0f, 0.0f};
-    glm::vec3 center = { 0.0f, 0.0f, 0.0f};
+//    glm::vec3 eye = { -250.0f, 100.0f, 350.0f};
+//    glm::vec3 center = { 50.0f, 100.0f, 100.0f};
+    glm::vec3 eye = { -150.0f, 50.0f, 125.0f};
+    glm::vec3 center = { 50.0f, 40.0f, 100.0f};
+
+//    glm::vec3 eye = { 1000.0f, 500.0f, 500.0f};
+//    glm::vec3 center = { 50.0f, 100.0f, 250.0f};
     std::vector<glm::vec3> points;
     float radius = 500.0f;
 

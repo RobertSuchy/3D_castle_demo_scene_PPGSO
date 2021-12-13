@@ -23,6 +23,7 @@
 #include "background.h"
 #include "flag.h"
 #include "asteroid.h"
+#include "spear.h"
 
 const unsigned int SIZE = 1024;
 
@@ -114,6 +115,12 @@ private:
         flag->position.y = 90;
         flag->position.z = 105;
         scene.objects.push_back(move(flag));
+
+        auto spear = std::make_unique<Spear>();
+        spear->position.x = -55;
+//        spear->position.z = 3500.0f;
+//        spear->position.y = 1000.0f;
+        scene.objects.push_back(move(spear));
     }
 
 public:

@@ -23,8 +23,11 @@ private:
     float age{0.0f};
 
     // Speed and rotational momentum
-    float speed;
-    glm::vec3 wind{0.01f, 0, 0.01f};
+    float speed, size;
+
+//    float gravity = 9.81;
+    glm::vec3 gravity{0, -0.01f, 0};
+    glm::vec3 wind{0.01f, 0.04f, 0.01f};
 
 
 public:
