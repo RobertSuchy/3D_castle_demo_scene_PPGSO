@@ -20,7 +20,6 @@ Castle::Castle() {
 }
 
 bool Castle::update(Scene &scene, float dt) {
-
     generateModelMatrix();
     return true;
 }

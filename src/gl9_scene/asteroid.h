@@ -34,7 +34,8 @@ private:
    * @param explosionScale - Scale of the explosion
    * @param pieces - Asteroid pieces to generate
    */
-  void explode(Scene &scene, glm::vec3 explosionPosition, glm::vec3 explosionScale, int pieces);
+  void explode(Scene &scene, glm::vec3 explosionPosition, glm::vec3 explosionScale);
+  void reproduce(Scene &scene);
 
 public:
   /*!
@@ -59,7 +60,7 @@ public:
   /*!
    * Custom click event for asteroid
    */
-  void onClick(Scene &scene) override;
+//  void onClick(Scene &scene) override;
 
 private:
 };

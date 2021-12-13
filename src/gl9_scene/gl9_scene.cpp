@@ -21,6 +21,8 @@
 #include "fireplace.h"
 #include "generator.h"
 #include "background.h"
+#include "flag.h"
+#include "asteroid.h"
 
 const unsigned int SIZE = 1024;
 
@@ -85,10 +87,12 @@ private:
             positionZ = glm::linearRand(250.0f, 1750.0f);
             pushTrees(positionX, positionZ);
 
-            positionX = glm::linearRand(250.0f, 1750.0f);
-            positionZ = glm::linearRand(0.0f, 200.0f);
-            pushTrees(positionX, positionZ);
-        }
+        auto obj = std::make_unique<Asteroid>();
+        obj->position.x = -50;
+        obj->position.y = 2000;
+        obj->position.z = -75;
+//        obj->position.x += glm::linearRand(-20.0f, 20.0f);
+        scene.objects.push_back(move(obj));
 
         // Add fireplace to the scene
         auto fireplace = std::make_unique<Fireplace>();
@@ -100,6 +104,11 @@ private:
 
         auto generator = std::make_unique<Generator>();
         scene.objects.push_back(move(generator));
+//        auto flag = std::make_unique<Flag>();
+//        flag->position.x = -100;
+//        flag->position.y = 90;
+//        flag->position.z = 105;
+//        scene.objects.push_back(move(flag));
     }
 
 public:
