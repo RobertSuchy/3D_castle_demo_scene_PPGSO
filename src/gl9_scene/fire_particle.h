@@ -24,7 +24,7 @@ private:
 
     // Speed and rotational momentum
     float speed;
-    glm::vec3 wind{0.02f, 0, 0.02f};
+    glm::vec3 wind{0.01f, 0, 0.01f};
 
 
 public:

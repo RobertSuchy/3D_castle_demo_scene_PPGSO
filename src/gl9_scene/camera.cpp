@@ -12,7 +12,7 @@ Camera::Camera(float fow, float ratio, float near, float far) {
 void Camera::update(float dt) {
 //    eyeX = std::sin(glfwGetTime()) * radius;
 //    eyeZ = std::cos(glfwGetTime()) * radius;
-    age += dt;
+    age += dt * 10;
 
     // priblíženie sa k hradu
     if (age <= approachTime) {

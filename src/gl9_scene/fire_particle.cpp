@@ -28,7 +28,7 @@ bool FireParticle::update(Scene &scene, float dt) {
 //    position.z += std::sin(age * 2) / 100;
 
     position.y += speed * 0.075f;
-    position += scale * wind * (age/4);
+    position += wind / (scale);
 
     scale *= 0.998;
     if (position.y > 75) {

@@ -7,7 +7,7 @@ std::unique_ptr<ppgso::Shader> WavingFlag::shader;
 
 WavingFlag::WavingFlag(const glm::vec3 controlPoints[4][4]) {
     scale *= 8.0f;
-    position.x = -88;
+    position.x = -38;
     position.y = 106;
     position.z = 105;
     rotation.x = M_PI;
