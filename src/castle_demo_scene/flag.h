@@ -6,7 +6,6 @@
 
 class Flag final : public Object {
 private:
-    // Static resources (Shared between instances)
     static std::unique_ptr<ppgso::Mesh> mesh;
     static std::unique_ptr<ppgso::Shader> shader;
     static std::unique_ptr<ppgso::Texture> texture;
@@ -22,7 +21,6 @@ private:
 
 public:
     Flag();
-//    glm::vec3 rotation{-ppgso::PI/2, 0, 0};
 
     /*!
      * Update player position considering keyboard inputs

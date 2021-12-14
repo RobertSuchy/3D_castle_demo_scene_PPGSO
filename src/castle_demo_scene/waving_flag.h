@@ -2,15 +2,34 @@
 #include <ppgso/ppgso.h>
 
 #include "object.h"
+#include "scene.h"
 
-class Background final : public Object {
+
+class WavingFlag final : public Object {
 private:
-    // Static resources (Shared between instances)
-    static std::unique_ptr<ppgso::Mesh> mesh;
     static std::unique_ptr<ppgso::Shader> shader;
     static std::unique_ptr<ppgso::Texture> texture;
+    float age{0.0f};
 
-public:Background();
+    std::vector<glm::vec3> vertices;
+
+    std::vector<glm::vec2> texCoords;
+
+    struct face {
+        GLuint v0, v1, v2;
+    };
+
+    std::vector<face> mesh;
+
+    GLuint vao, vbo, tbo, ibo;
+    glm::mat4 modelMatrix{1.0f};
+
+    glm::vec3 bezierPoint(const glm::vec3 controlPoints[4], float t);
+
+
+public:
+    WavingFlag(const glm::vec3 controlPoints[4][4]);
+
 
     /*!
      * Update player position considering keyboard inputs

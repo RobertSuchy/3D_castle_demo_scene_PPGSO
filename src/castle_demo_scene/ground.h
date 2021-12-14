@@ -3,14 +3,22 @@
 
 #include "object.h"
 
-class Fireplace final : public Object {
+/*!
+ * Simple object representing the player
+ * Reads keyboard status and manipulates its own position
+ * On Update checks collisions with Asteroid objects in the scene
+ */
+class Ground final : public Object {
 private:
-    // Static resources (Shared between instances)
     static std::unique_ptr<ppgso::Mesh> mesh;
     static std::unique_ptr<ppgso::Shader> shader;
     static std::unique_ptr<ppgso::Texture> texture;
 
-public:Fireplace();
+public:
+    /*!
+     * Create a new player
+     */
+    Ground();
 
     /*!
      * Update player position considering keyboard inputs
@@ -26,3 +34,4 @@ public:Fireplace();
      */
     void render(Scene &scene) override;
 };
+

@@ -1,7 +1,6 @@
 #include <glm/gtc/random.hpp>
 #include "spear.h"
 #include "castle.h"
-#include "asteroid.h"
 #include "wall_particle.h"
 
 #include <shaders/diffuse_vert_glsl.h>
@@ -61,14 +60,11 @@ bool Spear::update(Scene &scene, float dt) {
 void Spear::render(Scene &scene) {
     shader->use();
 
-    // Set up light
     shader->setUniform("LightDirection", scene.lightDirection);
 
-    // use camera
     shader->setUniform("ProjectionMatrix", scene.camera->projectionMatrix);
     shader->setUniform("ViewMatrix", scene.camera->viewMatrix);
 
-    // render mesh
     shader->setUniform("ModelMatrix", modelMatrix);
     shader->setUniform("Texture", *texture);
     mesh->render();

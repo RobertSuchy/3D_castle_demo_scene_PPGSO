@@ -22,12 +22,12 @@ WavingFlag::WavingFlag(const glm::vec3 controlPoints[4][4]) {
 
             glm::vec3 u[4];
             for (int k = 0; k < 4; k++) {
-                u[k] = bezierPoint(controlPoints[k], j / (float) (PATCH_SIZE-1));
+                u[k] = bezierPoint(controlPoints[k], j / (float) (PATCH_SIZE - 1));
             }
 
-            vertices.push_back(bezierPoint(u, i / (float) (PATCH_SIZE-1)));
+            vertices.push_back(bezierPoint(u, i / (float) (PATCH_SIZE - 1)));
 
-            texCoords.push_back({j / (float) (PATCH_SIZE-1), i / (float) (PATCH_SIZE-1)});
+            texCoords.push_back({j / (float) (PATCH_SIZE - 1), i / (float) (PATCH_SIZE - 1)});
         }
     }
     // Generate indices
@@ -91,12 +91,9 @@ glm::vec3 WavingFlag::bezierPoint(const glm::vec3 *controlPoints, float t) {
 }
 
 bool WavingFlag::update(Scene &scene, float dt) {
-    modelMatrix =
-            glm::translate(glm::mat4{1.0f}, position)
-            * glm::rotate(glm::mat4{1.0f}, rotation.x, glm::vec3{1, 0, 0})
-//            * glm::rotate(glm::mat4{1.0f}, rotation.y, glm::vec3{0, 1, 0})
-//            * glm::rotate(glm::mat4{1.0f}, rotation.z, glm::vec3{0, 0, 1})
-            * glm::scale(glm::mat4{1.0f}, scale);
+    modelMatrix = glm::translate(glm::mat4{1.0f}, position)
+                  * glm::rotate(glm::mat4{1.0f}, rotation.x, glm::vec3{1, 0, 0})
+                  * glm::scale(glm::mat4{1.0f}, scale);
     return true;
 }
 
@@ -109,16 +106,13 @@ void WavingFlag::render(Scene &scene) {
 
     shader->setUniform("ViewMatrix", scene.camera->viewMatrix);
 
-    // Set model position
     shader->setUniform("ModelMatrix", modelMatrix);
 
-    // Bind texture
     shader->setUniform("Texture", *texture);
 
     glBindVertexArray(vao);
-    // TODO: Use correct rendering mode to draw the result
-    //glDrawElements(??);
-    glDrawElements(GL_TRIANGLES, (GLsizei) mesh.size() * sizeof(face), GL_UNSIGNED_INT, 0);
 
     glDisable(GL_CULL_FACE);
+    glDrawElements(GL_TRIANGLES, (GLsizei) mesh.size() * sizeof(face), GL_UNSIGNED_INT, 0);
+    glEnable(GL_CULL_FACE);
 }
