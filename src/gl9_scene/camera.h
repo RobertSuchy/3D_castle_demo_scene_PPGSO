@@ -24,6 +24,7 @@ public:
     std::vector<glm::vec3> points;
     float radius = 500.0f;
 
+
     glm::mat4 viewMatrix;
     glm::mat4 projectionMatrix;
     float age{0.0f};

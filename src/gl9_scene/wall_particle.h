@@ -12,7 +12,7 @@
  * It initializes and loads all resources only once
  * It will move down along the Y axis and self delete when reaching below -10
  */
-class Spear final : public Object {
+class WallParticle final : public Object {
 private:
     // Static resources (Shared between instances)
     static std::unique_ptr<ppgso::Mesh> mesh;
@@ -21,14 +21,13 @@ private:
 
     // Age of the object in seconds
     float age{0.0f};
-    bool flyingSpear = true;
-    float size, speed, throwDistance;
+
+    glm::vec3 gravity{0, -0.1f, 0};
+    glm::vec3 force;
+
 
 public:
-    /*!
-     * Create new asteroid
-     */
-    Spear();
+    WallParticle();
 
     /*!
      * Update asteroid
@@ -47,8 +46,6 @@ public:
     /*!
      * Custom click event for asteroid
      */
-//  void onClick(Scene &scene) override;
-
-private:
+//    void onClick(Scene &scene) override;
 };
 

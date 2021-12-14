@@ -14,7 +14,15 @@ void Camera::update(float dt) {
 //    eyeZ = std::cos(glfwGetTime()) * radius;
     age += dt * 1.0;
 
-    // priblíženie sa k hradu
+    eye.x = -55.0f;
+    eye.y = 500 * age * std::sin(M_PI / 8) - 9.81 * 9 * pow(age, 2) / 2 + 10;
+    eye.z = 1975.0f - 500 * age * std::cos(M_PI / 8) + 20;
+    center.x = -55.0f;
+//    center.y = 500 * age * std::sin(M_PI / 8) - 9.81 * 9 * pow(age, 2) / 2;
+//    center.x = -55.0f;
+//    center.y = 500 * age * std::sin(M_PI / 8) - 9.81 * 9 * pow(age, 2) / 2 + 5;
+//    center.z = 1975.0f - 500 * age * std::cos(M_PI / 8);
+//    // priblíženie sa k hradu
 //    if (age <= approachTime) {
 //        points = {
 //                glm::vec3 {radius + 3000.0f, 1000.0f, 0.0f},

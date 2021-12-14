@@ -93,21 +93,22 @@ private:
             pushTrees(positionX, positionZ);
         }
 
-//        auto obj = std::make_unique<Asteroid>();
-//        obj->position.x = -50;
-//        obj->position.y = 2000;
-//        obj->position.z = -75;
-////        obj->position.x += glm::linearRand(-20.0f, 20.0f);
-//        scene.objects.push_back(move(obj));
+        auto obj = std::make_unique<Asteroid>();
+        obj->position.x = -50;
+        obj->position.y = 2000;
+        obj->position.z = -75;
+        scene.objects.push_back(move(obj));
 
         // Add fireplace to the scene
         auto fireplace = std::make_unique<Fireplace>();
         fireplace->position.z = -75;
         scene.objects.push_back(move(fireplace));
 
+        // Add background to the scene
         auto background = std::make_unique<Background>();
         scene.objects.push_back(move(background));
 
+        // Add generator to the scene
         auto generator = std::make_unique<Generator>();
         scene.objects.push_back(move(generator));
         auto flag = std::make_unique<Flag>();
@@ -116,10 +117,9 @@ private:
         flag->position.z = 105;
         scene.objects.push_back(move(flag));
 
+        // Add spear to the scene
         auto spear = std::make_unique<Spear>();
         spear->position.x = -55;
-//        spear->position.z = 3500.0f;
-//        spear->position.y = 1000.0f;
         scene.objects.push_back(move(spear));
     }
 

@@ -14,14 +14,11 @@ std::unique_ptr<ppgso::Texture> Asteroid::texture;
 std::unique_ptr<ppgso::Shader> Asteroid::shader;
 
 Asteroid::Asteroid() {
-    // Set random scale speed and rotation
-//    scale *= glm::linearRand(10.0f, 30.0f);
-    scale *= 1500.0f;
+    scale *= 2.0f;
     speed = {glm::linearRand(-2.0f, 2.0f), glm::linearRand(-500.0f, -1000.0f), 0.0f};
     rotation = glm::ballRand(ppgso::PI);
     rotMomentum = glm::ballRand(ppgso::PI);
 
-    // Initialize static resources if needed
     if (!shader) shader = std::make_unique<ppgso::Shader>(diffuse_vert_glsl, diffuse_frag_glsl);
     if (!texture) texture = std::make_unique<ppgso::Texture>(ppgso::image::loadBMP("asteroid.bmp"));
     if (!mesh) mesh = std::make_unique<ppgso::Mesh>("asteroid.obj");
@@ -41,41 +38,41 @@ bool Asteroid::update(Scene &scene, float dt) {
 //    if (age > 10.0f || position.y < -10) return false;
 
     // Collide with scene
-    for (auto &obj: scene.objects) {
-        // Ignore self in scene
-        if (obj.get() == this) continue;
-
-        // We only need to collide with asteroids and projectiles, ignore other objects
-//        auto asteroid = dynamic_cast<Asteroid *>(obj.get()); // dynamic_pointer_cast<Asteroid>(obj);
-        auto ground = dynamic_cast<Ground *>(obj.get()); //dynamic_pointer_cast<Projectile>(obj);
-//        if (!asteroid && !ground) continue;
-        if (!ground) continue;
-
-//        // When colliding with other asteroids make sure the object is older than .5s
-//        // This prevents excessive collisions when asteroids explode.
-
-        // Compare distance to approximate size of the asteroid estimated from scale.
-        if (distance(position, obj->position) < (obj->scale.y + scale.y) * 1.0f) {
-//            int pieces = 3;
+//    for (auto &obj: scene.objects) {
+//        // Ignore self in scene
+//        if (obj.get() == this) continue;
 //
-//            // Too small to split into pieces
-//            if (scale.y < 0.5) pieces = 0;
-
-            // The projectile will be destroyed
-//            if (projectile) projectile->destroy();
-
-            // Generate smaller asteroids
-            explode(scene, (obj->position + position) / 2.0f, (obj->scale + scale) / 2.0f);
-//            if (asteroid && age < 5.0f) {
-//                return false;
-//            }
-
-            reproduce(scene);
-
-            // Destroy self
-            return false;
-        }
-    }
+//        // We only need to collide with asteroids and projectiles, ignore other objects
+////        auto asteroid = dynamic_cast<Asteroid *>(obj.get()); // dynamic_pointer_cast<Asteroid>(obj);
+//        auto ground = dynamic_cast<Ground *>(obj.get()); //dynamic_pointer_cast<Projectile>(obj);
+////        if (!asteroid && !ground) continue;
+//        if (!ground) continue;
+//
+////        // When colliding with other asteroids make sure the object is older than .5s
+////        // This prevents excessive collisions when asteroids explode.
+//
+//        // Compare distance to approximate size of the asteroid estimated from scale.
+//        if (distance(position, obj->position) < (obj->scale.y + scale.y) * 1.0f) {
+////            int pieces = 3;
+////
+////            // Too small to split into pieces
+////            if (scale.y < 0.5) pieces = 0;
+//
+//            // The projectile will be destroyed
+////            if (projectile) projectile->destroy();
+//
+//            // Generate smaller asteroids
+////            explode(scene, (obj->position + position) / 2.0f, (obj->scale + scale) / 2.0f);
+//////            if (asteroid && age < 5.0f) {
+//////                return false;
+//////            }
+////
+////            reproduce(scene);
+//
+//            // Destroy self
+//            return false;
+//        }
+//    }
 
     // Generate modelMatrix from position, rotation and scale
     generateModelMatrix();

@@ -110,7 +110,7 @@ add_executable(gl9_scene
         src/gl9_scene/player.cpp
         src/gl9_scene/projectile.cpp
         src/gl9_scene/explosion.cpp
-        src/gl9_scene/space.cpp src/gl9_scene/cube.cpp src/gl9_scene/cube.h src/gl9_scene/castle.cpp src/gl9_scene/castle.h src/gl9_scene/ground.cpp src/gl9_scene/ground.h src/gl9_scene/tree.cpp src/gl9_scene/tree.h src/gl9_scene/fireplace.cpp src/gl9_scene/fireplace.h src/gl9_scene/fire_particle.cpp src/gl9_scene/fire_particle.h src/gl9_scene/background.cpp src/gl9_scene/background.h src/gl9_scene/flag.cpp src/gl9_scene/flag.h src/gl9_scene/waving_flag.cpp src/gl9_scene/waving_flag.h src/gl9_scene/spear.cpp src/gl9_scene/spear.h)
+        src/gl9_scene/space.cpp src/gl9_scene/cube.cpp src/gl9_scene/cube.h src/gl9_scene/castle.cpp src/gl9_scene/castle.h src/gl9_scene/ground.cpp src/gl9_scene/ground.h src/gl9_scene/tree.cpp src/gl9_scene/tree.h src/gl9_scene/fireplace.cpp src/gl9_scene/fireplace.h src/gl9_scene/fire_particle.cpp src/gl9_scene/fire_particle.h src/gl9_scene/background.cpp src/gl9_scene/background.h src/gl9_scene/flag.cpp src/gl9_scene/flag.h src/gl9_scene/waving_flag.cpp src/gl9_scene/waving_flag.h src/gl9_scene/spear.cpp src/gl9_scene/spear.h src/gl9_scene/wall_particle.cpp src/gl9_scene/wall_particle.h)
 target_link_libraries(gl9_scene ppgso shaders)
 install(TARGETS gl9_scene DESTINATION .)
 add_custom_command(TARGET gl9_scene POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_SOURCE_DIR}/data/ ${CMAKE_CURRENT_BINARY_DIR})
