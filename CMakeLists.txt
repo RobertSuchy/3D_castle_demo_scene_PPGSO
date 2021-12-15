@@ -133,7 +133,7 @@ add_executable(castle_demo_scene
         src/castle_demo_scene/minute_hand.cpp
         src/castle_demo_scene/minute_hand.h
         src/castle_demo_scene/second_hand.cpp
-        src/castle_demo_scene/second_hand.h)
+        src/castle_demo_scene/second_hand.h src/castle_demo_scene/bird.cpp src/castle_demo_scene/bird.h)
 target_link_libraries(castle_demo_scene ppgso shaders)
 install(TARGETS castle_demo_scene DESTINATION .)
 add_custom_command(TARGET castle_demo_scene POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_SOURCE_DIR}/data/ ${CMAKE_CURRENT_BINARY_DIR})

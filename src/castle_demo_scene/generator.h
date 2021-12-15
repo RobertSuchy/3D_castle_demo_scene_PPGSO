@@ -9,6 +9,7 @@
  */
 class Generator final : public Object {
 public:
+    int spearCount = 0;
   /*!
    * Generate new asteroids over time
    * @param scene Scene to update

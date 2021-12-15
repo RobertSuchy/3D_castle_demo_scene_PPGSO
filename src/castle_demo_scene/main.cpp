@@ -12,18 +12,12 @@
 #include "fireplace.h"
 #include "generator.h"
 #include "clock.h"
-#include "hour_hand.h"
-#include "minute_hand.h"
-#include "second_hand.h"
 #include "background.h"
 #include "flag.h"
-#include "spear.h"
+#include "bird.h"
 
 const unsigned int SIZE = 1024;
 
-/*!
- * Custom windows for our simple game
- */
 class SceneWindow : public ppgso::Window {
 private:
     Scene scene;
@@ -112,16 +106,18 @@ private:
         clock->position.z = -39.75f;
         scene.objects.push_back(move(clock));
 
-        // pridanie oštepu do scény
-        auto spear = std::make_unique<Spear>();
-        spear->position.x = -55.0f;
-        scene.objects.push_back(move(spear));
+        auto bird = std::make_unique<Bird>();
+//        bird->position.x = -98.5f;
+//        bird->position.y = 27.75f;
+//        bird->position.z = -39.75f;
+        bird->position.x = 3400.0f;
+        bird->position.y = 1000.0f;
+        bird->position.z = 0.0f;
+        bird->rotation.z = M_PI/2;
+        scene.objects.push_back(move(bird));
     }
 
 public:
-    /*!
-     * Construct custom game window
-     */
     SceneWindow() : Window{"castle_demo_scene", SIZE, SIZE} {
         glfwSetInputMode(window, GLFW_STICKY_KEYS, 1);
 
@@ -135,74 +131,6 @@ public:
         initScene();
     }
 
-//    /*!
-//     * Handles pressed key when the window is focused
-//     * @param key Key code of the key being pressed/released
-//     * @param scanCode Scan code of the key being pressed/released
-//     * @param action Action indicating the key state change
-//     * @param mods Additional modifiers to consider
-//     */
-//    void onKey(int key, int scanCode, int action, int mods) override {
-//        scene.keyboard[key] = action;
-//
-//        // Reset
-//        if (key == GLFW_KEY_R && action == GLFW_PRESS) {
-//            initScene();
-//        }
-//
-//        // Pause
-//        if (key == GLFW_KEY_P && action == GLFW_PRESS) {
-//            animate = !animate;
-//        }
-//    }
-//
-//    /*!
-//     * Handle cursor position changes
-//     * @param cursorX Mouse horizontal position in window coordinates
-//     * @param cursorY Mouse vertical position in window coordinates
-//     */
-//    void onCursorPos(double cursorX, double cursorY) override {
-//        scene.cursor.x = cursorX;
-//        scene.cursor.y = cursorY;
-//    }
-//
-//    /*!
-//     * Handle cursor buttons
-//     * @param button Mouse button being manipulated
-//     * @param action Mouse bu
-//     * @param mods
-//     */
-//    void onMouseButton(int button, int action, int mods) override {
-//        if (button == GLFW_MOUSE_BUTTON_LEFT) {
-//            scene.cursor.left = action == GLFW_PRESS;
-//
-//            if (scene.cursor.left) {
-//                // Convert pixel coordinates to Screen coordinates
-//                double u = (scene.cursor.x / width - 0.5f) * 2.0f;
-//                double v = -(scene.cursor.y / height - 0.5f) * 2.0f;
-//
-//                // Get mouse pick vector in world coordinates
-//                auto direction = scene.camera->cast(u, v);
-////                auto position = scene.camera->position;
-//
-//                // Get all objects in scene intersected by ray
-////                auto picked = scene.intersect(position, direction);
-//
-//                // Go through all objects that have been picked
-//                for (auto &obj: picked) {
-//                    // Pass on the click event
-//                    obj->onClick(scene);
-//                }
-//            }
-//        }
-//        if (button == GLFW_MOUSE_BUTTON_RIGHT) {
-//            scene.cursor.right = action == GLFW_PRESS;
-//        }
-//    }
-
-    /*!
-     * Window update implementation that will be called automatically from pollEvents
-     */
     void onIdle() override {
         static auto time = (float) glfwGetTime();
         float dt = animate ? (float) glfwGetTime() - time : 0;
