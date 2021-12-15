@@ -14,24 +14,12 @@ class Camera {
 public:
     const float approachTime = 10.0f;
     const float quarterTime = 3.75f;
-//    glm::vec3 eye = { -250.0f, 100.0f, 350.0f};
-//    glm::vec3 center = { 50.0f, 100.0f, 100.0f};
-//    glm::vec3 eye = { -150.0f, 50.0f, 125.0f};
-//    glm::vec3 center = { 50.0f, 40.0f, 100.0f};
-
-//    glm::vec3 center = {0.0f, 0.0f, 0.0f};
-
-//    glm::vec3 eye = {-50.0f, 24.5f, -39.75f};
-//    glm::vec3 center = {-98.5f, 24.5f, -39.75f};
 
     glm::vec3 eye = {3500.0f, 1000.0f, 0.0f};
     glm::vec3 center = {0.0f, 0.0f, 0.0f};
 
-//    glm::vec3 eye = { 1000.0f, 500.0f, 500.0f};
-//    glm::vec3 center = { 50.0f, 100.0f, 250.0f};
     std::vector<glm::vec3> points;
     float radius = 500.0f;
-
 
     glm::mat4 viewMatrix;
     glm::mat4 projectionMatrix;
@@ -51,14 +39,6 @@ public:
      * Update Camera viewMatrix based on up, position and back vectors
      */
     void update(float dt);
-
-    /*!
-     * Get direction vector in world coordinates through camera projection plane
-     * @param u - camera projection plane horizontal coordinate [-1,1]
-     * @param v - camera projection plane vertical coordinate [-1,1]
-     * @return Normalized vector from camera position to position on the camera projection plane
-     */
-    glm::vec3 cast(double u, double v);
 
     glm::vec3 bezierPoint(std::vector<glm::vec3> points, float t);
 };

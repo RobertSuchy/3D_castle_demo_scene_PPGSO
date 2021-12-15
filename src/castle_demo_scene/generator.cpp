@@ -14,17 +14,18 @@ bool Generator::update(Scene &scene, float dt) {
     obj->position.z += glm::linearRand(-70.0f, -80.0f);
     scene.objects.push_back(move(obj));
 
-    if (time >= 90.0f && spearCount == 0) {
+    // vygeneruje sa spear do veže
+    if (time >= 105.0f && spearCount == 0) {
         auto spear = std::make_unique<Spear>();
         spear->position.x = -55.0f;
         scene.objects.push_back(move(spear));
         spearCount++;
     }
 
-    //vygeneruje sa ďalší spear
-    if (time >= 110.0f && spearCount == 1) {
+    // vygeneruje sa spear do kamery
+    if (time >= 111.0f && spearCount == 1) {
         auto spear = std::make_unique<Spear>();
-        spear->position.x = -65.0f;
+        spear->position.x = -100.0f;
         scene.objects.push_back(move(spear));
         spearCount++;
     }

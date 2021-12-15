@@ -87,6 +87,10 @@ private:
             pushTrees(positionX, positionZ);
         }
 
+        // pridanie vtáka do scény
+        auto bird = std::make_unique<Bird>();
+        scene.objects.push_back(move(bird));
+
         // pridanie ohniska do scény
         auto fireplace = std::make_unique<Fireplace>();
         fireplace->position.z = -75;
@@ -95,6 +99,8 @@ private:
         // pridanie generátora do scény
         auto generator = std::make_unique<Generator>();
         scene.objects.push_back(move(generator));
+
+        // pridanie vlajky do scény
         auto flag = std::make_unique<Flag>();
         flag->position.x = -50.0f;
         flag->position.y = 90.0f;
@@ -107,16 +113,6 @@ private:
         clock->position.y = 27.75f;
         clock->position.z = -39.75f;
         scene.objects.push_back(move(clock));
-
-        auto bird = std::make_unique<Bird>();
-//        bird->position.x = -98.5f;
-//        bird->position.y = 27.75f;
-//        bird->position.z = -39.75f;
-//        bird->position.x = 3400.0f;
-//        bird->position.y = 1000.0f;
-//        bird->position.z = 0.0f;
-//        bird->rotation.z = M_PI/2;
-        scene.objects.push_back(move(bird));
     }
 
 public:

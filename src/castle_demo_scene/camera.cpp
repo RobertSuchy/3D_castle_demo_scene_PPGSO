@@ -14,15 +14,6 @@ void Camera::update(float dt) {
 //    eyeZ = std::cos(glfwGetTime()) * radius;
     age += dt * 1.0;
 
-//    eye.x = -55.0f;
-//    eye.y = 500 * age * std::sin(M_PI / 8) - 9.81 * 9 * pow(age, 2) / 2 + 10;
-//    eye.z = 1975.0f - 500 * age * std::cos(M_PI / 8) + 20;
-//    center.x = -55.0f;
-//    center.y = 500 * age * std::sin(M_PI / 8) - 9.81 * 9 * pow(age, 2) / 2;
-//    center.x = -55.0f;
-//    center.y = 500 * age * std::sin(M_PI / 8) - 9.81 * 9 * pow(age, 2) / 2 + 5;
-//    center.z = 1975.0f - 500 * age * std::cos(M_PI / 8);
-
     // priblíženie sa k hradu
     if (age <= approachTime) {
         points = {
@@ -73,128 +64,223 @@ void Camera::update(float dt) {
         };
         eye = bezierPoint(points, ((float) age - (approachTime + 3 * quarterTime)) / quarterTime);
     }
-//    // nastavenie kamery pred bránu
-//    else if (switchScene) {
-//        eye.x = 220.0f;
-//        eye.y = center.y = 10.0f;
-//        eye.z = center.z = 15.0f;
-//        switchScene = false;
-//    }
-//    // chôdza cez bránu
-//    else if (age <= 30.0f) {
-//        points = {
-//                glm::vec3 {220.0f, 10.0f, 15.0f},
-//                glm::vec3 {160.0f, 10.0f, 15.0f}
-//        };
-//        eye = bezierPoint(points, ((float) age - 25.0f) / 5.0f);
-//        eye.y = std::sin(age * 10.0f) * 0.25f + 10.0f;
-//    }
-//    // pohľad vpravo
-//    else if (age <= 32.0f) {
-//        points = {
-//                glm::vec3 {0.0f, 10.0f, 15.0f},
-//                glm::vec3 {0.0f, 10.0f, -85.0f}
-//        };
-//        center = bezierPoint(points, ((float) age - 30.0f) / 2.0f);
-//    }
-//    // pohľad vľavo
-//    else if (age <= 35.5f) {
-//        points = {
-//                glm::vec3 {0.0f, 10.0f, -85.0f},
-//                glm::vec3 {0.0f, 10.0f, 85.0f}
-//        };
-//        center = bezierPoint(points, ((float) age - 32.0f) / 3.5f);
-//    }
-//    // pohyb šikmo vľavo
-//    else if (age <= 40.0f) {
-//        points = {
-//                glm::vec3 {160.0f, 10.0f, 15.0f},
-//                glm::vec3 {150.0f, 10.0f, 35.0f},
-//                glm::vec3 {120.0f, 10.0f, 55.0f}
-//        };
-//        eye = bezierPoint(points, ((float) age - 35.5f) / 4.5f);
-//        eye.y = std::sin(age * 10.0f) * 0.25f + 10.0f;
-//        points = {
-//                glm::vec3 {0.0f, 10.0f, 85.0f},
-//                glm::vec3 {0.0f, 10.0f, 55.0f}
-//        };
-//        center = bezierPoint(points, ((float) age - 35.5f) / 4.5f);
-//    }
-//    // pohyb rovno
-//    else if (age <= 45.0f) {
-//        points = {
-//                glm::vec3 {120.0f, 10.0f, 55.0f},
-//                glm::vec3 {60.0f, 10.0f, 55.0f}
-//        };
-//        eye = bezierPoint(points, ((float) age - 40.0f) / 5.0f);
-//        eye.y = std::sin(age * 10.0f) * 0.25f + 10.0f;
-//    }
-//    // pohybb šikmo vpravo
-//    else if (age <= 50.0f) {
-//        points = {
-//                glm::vec3 {60.0f, 10.0f, 55.0f},
-//                glm::vec3 {20.0f, 10.0f, 35.0f},
-//                glm::vec3 {0.0f, 10.0f, 0.0f}
-//        };
-//        eye = bezierPoint(points, ((float) age - 45.0f) / 5.0f);
-//        eye.y = std::sin(age * 10.0f) * 0.25f + 10.0f;
-//        points = {
-//                glm::vec3 {0.0f, 10.0f, 55.0f},
-//                glm::vec3 {0.0f, 10.0f, -100.0f}
-//        };
-//        center = bezierPoint(points, ((float) age - 45.0f) / 5.0f);
-//    }
-//    else if (age <= 53.0f) {
-//        points = {
-//                glm::vec3{0.0f, 10.0f, 0.0f},
-//                glm::vec3{0.0f, 10.0f, -36.0f}
-//        };
-//        eye = bezierPoint(points, ((float) age - 50.0f) / 3.0f);
-//        eye.y = std::sin(age * 10.0f) * 0.25f + 10.0f;
-//    }
-//    // pohľad hore a späť
-//    else if (age <= 60.0f) {
-//        points = {
-//                glm::vec3 {0.0f, 10.0f, -100.0f},
-//                glm::vec3 {10.0f, 80.0f, -100.0f},
-//                glm::vec3 {25.0f, 150.0f, -100.0f},
-//                glm::vec3 {10.0f, 80.0f, -100.0f},
-//                glm::vec3 {0.0f, 10.0f, -100.0f}
-//        };
-//        center = bezierPoint(points, ((float) age - 53.0f) / 7.0f);
-//    }
-//    eye = glm::vec3{0.0f, 10.0f, -36.0f};
-//    if (age <= 3.0f) {
-//        points = {
-//                glm::vec3{0.0f, 10.0f, -100.0f},
-//                glm::vec3{-98.5f, 27.75f, -39.75f}
-//        };
-//        center = bezierPoint(points, ((float) age - 0.0f) / 3.0f);
-//    }
+    // nastavenie kamery pred bránu
+    else if (switchScene) {
+        eye.x = 220.0f;
+        eye.y = center.y = 10.0f;
+        eye.z = center.z = 15.0f;
+        switchScene = false;
+    }
+    // chôdza cez bránu
+    else if (age <= 30.0f) {
+        points = {
+                glm::vec3 {220.0f, 10.0f, 15.0f},
+                glm::vec3 {160.0f, 10.0f, 15.0f}
+        };
+        eye = bezierPoint(points, ((float) age - 25.0f) / 5.0f);
+        eye.y = std::sin(age * 10.0f) * 0.25f + 10.0f;
+    }
+    // pohľad vpravo
+    else if (age <= 32.0f) {
+        points = {
+                glm::vec3 {0.0f, 10.0f, 15.0f},
+                glm::vec3 {0.0f, 10.0f, -85.0f}
+        };
+        center = bezierPoint(points, ((float) age - 30.0f) / 2.0f);
+    }
+    // pohľad vľavo
+    else if (age <= 35.5f) {
+        points = {
+                glm::vec3 {0.0f, 10.0f, -85.0f},
+                glm::vec3 {0.0f, 10.0f, 85.0f}
+        };
+        center = bezierPoint(points, ((float) age - 32.0f) / 3.5f);
+    }
+    // pohyb šikmo vľavo
+    else if (age <= 40.0f) {
+        points = {
+                glm::vec3 {160.0f, 10.0f, 15.0f},
+                glm::vec3 {150.0f, 10.0f, 35.0f},
+                glm::vec3 {120.0f, 10.0f, 55.0f}
+        };
+        eye = bezierPoint(points, ((float) age - 35.5f) / 4.5f);
+        eye.y = std::sin(age * 10.0f) * 0.25f + 10.0f;
+        points = {
+                glm::vec3 {0.0f, 10.0f, 85.0f},
+                glm::vec3 {0.0f, 10.0f, 55.0f}
+        };
+        center = bezierPoint(points, ((float) age - 35.5f) / 4.5f);
+    }
+    // pohyb rovno
+    else if (age <= 45.0f) {
+        points = {
+                glm::vec3 {120.0f, 10.0f, 55.0f},
+                glm::vec3 {60.0f, 10.0f, 55.0f}
+        };
+        eye = bezierPoint(points, ((float) age - 40.0f) / 5.0f);
+        eye.y = std::sin(age * 10.0f) * 0.25f + 10.0f;
+    }
+    // pohybb šikmo vpravo
+    else if (age <= 50.0f) {
+        points = {
+                glm::vec3 {60.0f, 10.0f, 55.0f},
+                glm::vec3 {20.0f, 10.0f, 35.0f},
+                glm::vec3 {0.0f, 10.0f, 0.0f}
+        };
+        eye = bezierPoint(points, ((float) age - 45.0f) / 5.0f);
+        eye.y = std::sin(age * 10.0f) * 0.25f + 10.0f;
+        points = {
+                glm::vec3 {0.0f, 10.0f, 55.0f},
+                glm::vec3 {0.0f, 10.0f, -100.0f}
+        };
+        center = bezierPoint(points, ((float) age - 45.0f) / 5.0f);
+    }
+    else if (age <= 53.0f) {
+        points = {
+                glm::vec3{0.0f, 10.0f, 0.0f},
+                glm::vec3{0.0f, 10.0f, -36.0f}
+        };
+        eye = bezierPoint(points, ((float) age - 50.0f) / 3.0f);
+        eye.y = std::sin(age * 10.0f) * 0.25f + 10.0f;
+    }
+    // pohľad hore na dym a späť
+    else if (age <= 60.0f) {
+        points = {
+                glm::vec3 {0.0f, 10.0f, -100.0f},
+                glm::vec3 {10.0f, 80.0f, -100.0f},
+                glm::vec3 {25.0f, 150.0f, -100.0f},
+                glm::vec3 {10.0f, 80.0f, -100.0f},
+                glm::vec3 {0.0f, 10.0f, -100.0f}
+        };
+        center = bezierPoint(points, ((float) age - 53.0f) / 7.0f);
+    }
+    // pohľad vľavo na hodiny
+    else if (age <= 63.0f) {
+        points = {
+                glm::vec3{0.0f, 10.0f, -100.0f},
+                glm::vec3{-98.5f, 27.75f, -39.75f}
+        };
+        center = bezierPoint(points, ((float) age - 60.0f) / 3.0f);
+    }
+    // pohyb rovno k hodinám
+    else if (age <= 68.0f) {
+        points = {
+                glm::vec3{0.0f, 10.0f, -36.0f},
+                glm::vec3{-60.0f, 10.0f, -36.0f}
+        };
+        eye = bezierPoint(points, ((float) age - 63.0f) / 5.0f);
+        eye.y = std::sin(age * 10.0f) * 0.25f + 10.0f;
+    }
+    // pohľad vpravo na schody
+    else if (age <= 72.0f) {
+        points = {
+                glm::vec3{-98.5f, 27.75f, -39.75f},
+                glm::vec3{-125.0f, 10.0f, -140.0f}
+        };
+        center = bezierPoint(points, ((float) age - 68.0f) / 4.0f);
+    }
+    // pohyb šikmo vpravo ku schodom
+    else if (age <= 80.0f) {
+        points = {
+                glm::vec3{-60.0f, 10.0f, -36.0f},
+                glm::vec3{-85.0f, 10.0f, -60.0f},
+                glm::vec3{-90.0f, 10.0f, -140.0f}
+        };
+        eye = bezierPoint(points, ((float) age - 72.0f) / 8.0f);
+        eye.y = std::sin(age * 10.0f) * 0.25f + 10.0f;
+    }
+    // pohyb hore po schodoch
+    else if (age <= 85.0f) {
+        points = {
+                glm::vec3{-90.0f, 10.0f, -140.0f},
+                glm::vec3{-160.0f, 50.0f, -140.0f}
+        };
+        eye = bezierPoint(points, ((float) age - 80.0f) / 5.0f);
+        eye.y = std::sin(age * 10.0f) * 0.5f + eye.y;
+        points = {
+                glm::vec3{-125.0f, 10.0f, -140.0f},
+                glm::vec3{-200.0f, 50.0f, -140.0f}
+        };
+        center = bezierPoint(points, ((float) age - 80.0f) / 5.0f);
+    }
+    // pohyb po hradbách
+    else if (age <= 100.0f) {
+        points = {
+                glm::vec3{-160.0f, 50.0f, -140.0f},
+                glm::vec3{-160.0f, 50.0f, 100.0f}
+        };
+        eye = bezierPoint(points, ((float) age - 85.0f) / 15.0f);
+        eye.y = std::sin(age * 10.0f) * 0.25f + eye.y;
+        points = {
+                glm::vec3{-200.0f, 50.0f, -140.0f},
+                glm::vec3{-100.0f, 50.0f, 200.0f}
+        };
+        center = bezierPoint(points, ((float) age - 85.0f) / 15.0f);
+    }
+    else if (age <= 105.0f) {
+        points = {
+                glm::vec3{-160.0f, 50.0f, 100.0f},
+                glm::vec3{-100.0f, 50.0f, 100.0f}
+        };
+        eye = bezierPoint(points, ((float) age - 100.0f) / 5.0f);
+        eye.y = std::sin(age * 10.0f) * 0.25f + eye.y;
+        points = {
+                glm::vec3{-100.0f, 50.0f, 200.0f},
+                glm::vec3{0.0f, 50.0f, 200.0f}
+        };
+        center = bezierPoint(points, ((float) age - 100.0f) / 5.0f);
+    }
+    // pozorovanie oštepu po trajektórii
+    else if (age <= 108.0f) {
+        eye.x = -55.0f;
+        eye.y = 500.0f * (age - 105.0f) * std::sin(M_PI / 8) - 9.81 * 9 * pow((age - 105.0f), 2) / 2 + 10;
+        eye.z = 1975.0f - 500.0f * (age - 105.0f) * std::cos(M_PI / 8) + 20;
+        center.x = -55.0f;
+        center.y = 0.0;
+        center.z = 0.0;
 
-//    else {
-//        center = {-98.5f, 27.75f, -39.75f};
-//        center = {-98.5f, 24.5f, -39.75f};
-//    }
+    }
+    // pozorovanie oštepu z hradieb
+    else if (age <= 109.0f) {
+        eye = glm::vec3{-100.0f, 50.0f, 100.0f};
+        points = {
+                glm::vec3{0.0f, 50.0f, 200.0f},
+                glm::vec3{0.0f, 50.0f, 250.0f},
+                glm::vec3{0.0f, 50.0f, 200.0f}
+        };
+        center = bezierPoint(points, ((float) age - 108.0f) / 1.0f);
+    }
+    else if (age <= 115.0f) {
+        points = {
+                glm::vec3{0.0f, 50.0f, 200.0f},
+                glm::vec3{-100.0f, 60.0f, 400.0f}
+        };
+        center = bezierPoint(points, ((float) age - 109.0f) / 6.0f);
+    }
+    // zásah oštepom a pád
+    else if (age <= 117.0f) {
+        points = {
+                glm::vec3{-160.0f, 50.0f, 100.0f},
+                glm::vec3{-100.0f, 0.0f, 80.0f}
+        };
+        eye = bezierPoint(points, ((float) age - 115.0f) / 2.0f);
+        points = {
+                glm::vec3{-100.0f, 60.0f, 400.0f},
+                glm::vec3{-100.0f, 100.0f, 100.0f}
+        };
+        center = bezierPoint(points, ((float) age - 115.0f) / 2.0f);
+    }
+    // finálny pohľad na vlajku a časť hradu
+    else if (age > 119.0f) {
+        eye.x = -38;
+        eye.y = 106;
+        eye.z = 250;
+        center.x = -38;
+        center.y = 106;
+        center.z = 105;
+    }
     viewMatrix = lookAt(eye, center, glm::vec3(0.0, 1.0, 0.0));
 }
-
-//glm::vec3 Camera::cast(double u, double v) {
-//    // Create point in Screen coordinates
-//    glm::vec4 screenPosition{u, v, 0.0f, 1.0f};
-//
-//    // Use inverse matrices to get the point in world coordinates
-//    auto invProjection = glm::inverse(projectionMatrix);
-//    auto invView = glm::inverse(viewMatrix);
-//
-//    // Compute position on the camera plane
-//    auto planePosition = invView * invProjection * screenPosition;
-//    planePosition /= planePosition.w;
-//
-//    // Create direction vector
-//    auto direction = glm::normalize(planePosition - glm::vec4{position, 1.0f});
-//    return glm::vec3{direction};
-//}
 
 glm::vec3 Camera::bezierPoint(std::vector<glm::vec3> points, const float t) {
     for (int i = 0; i < points.size() - 1; i++) {

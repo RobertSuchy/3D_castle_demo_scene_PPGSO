@@ -24,6 +24,9 @@ Spear::Spear() {
 
 bool Spear::update(Scene &scene, float dt) {
     age += dt;
+    if (age > 4.6f) {
+        return false;
+    }
 
     if (flyingSpear) {
         rotation.x -= dt / 5;
