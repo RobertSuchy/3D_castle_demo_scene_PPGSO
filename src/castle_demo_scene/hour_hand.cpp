@@ -19,24 +19,13 @@ HourHand::HourHand() {
     if (!mesh) mesh = std::make_unique<ppgso::Mesh>("cube.obj");
 }
 
-//bool HourHand::update(Scene &scene, float dt, glm::vec3 rotationOfParent) {
-//    rotation = rotationOfParent;
-//    rotation.x /= 60;
-//    modelMatrix = glm::translate(glm::mat4{1.0f}, position)
-//                  * glm::orientate4(rotation)
-//                  * glm::translate(glm::mat4{1.0f},glm::vec3 {0,1.5f,0})
-//                  * glm::scale(glm::mat4{1.0f}, scale);
-//    return true;
-//}
-
-bool HourHand::update(Scene &scene, float dt, glm::mat4 modelMatrixOfParent) {
-    modelMatrix = modelMatrixOfParent;
-//    rotation = rotationOfParent;
-//    rotation.x = dt / 60;
-//    modelMatrix *= glm::translate(glm::mat4{1.0f}, position)
-//                   * glm::orientate4(rotation)
-//                   * glm::translate(glm::mat4{1.0f},glm::vec3 {0,1.75,0})
-//                   * glm::scale(glm::mat4{1.0f}, scale);
+bool HourHand::update(Scene &scene, float dt, glm::vec3 rotationOfParent) {
+    rotation = rotationOfParent;
+    rotation.x /= 60;
+    modelMatrix = glm::translate(glm::mat4{1.0f}, position)
+                  * glm::orientate4(rotation)
+                  * glm::translate(glm::mat4{1.0f},glm::vec3 {0,1.5f,0})
+                  * glm::scale(glm::mat4{1.0f}, scale);
     return true;
 }
 

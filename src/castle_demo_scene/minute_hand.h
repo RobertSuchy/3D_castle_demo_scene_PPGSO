@@ -23,8 +23,7 @@ public:MinuteHand();
 
     bool update(Scene &scene, float dt) override;
 
-//    bool update(Scene &scene, float dt, glm::vec3 rotationOfParent);
-    bool update(Scene &scene, float dt, glm::mat4 modelMatrixOfParent);
+    bool update(Scene &scene, float dt, glm::vec3 rotationOfParent);
 
     /*!
      * Render player
