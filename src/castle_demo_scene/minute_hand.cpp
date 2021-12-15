@@ -1,5 +1,6 @@
 #include "minute_hand.h"
 #include "scene.h"
+#include <glm/gtx/string_cast.hpp>
 
 #include <glm/gtx/euler_angles.hpp>
 
@@ -25,16 +26,39 @@ MinuteHand::MinuteHand() {
     child->position.z = -39.75f;
 }
 
-bool MinuteHand::update(Scene &scene, float dt, glm::vec3 rotationOfParent) {
-    rotation = rotationOfParent;
-    rotation.x /= 60;
-    modelMatrix = glm::translate(glm::mat4{1.0f}, position)
-                  * glm::orientate4(rotation)
-                  * glm::translate(glm::mat4{1.0f},glm::vec3 {0,1.75,0})
-                  * glm::scale(glm::mat4{1.0f}, scale);
+//bool MinuteHand::update(Scene &scene, float dt, glm::vec3 rotationOfParent) {
+//    rotation = rotationOfParent;
+//    rotation.x /= 60;
+//    modelMatrix = glm::translate(glm::mat4{1.0f}, position)
+//                  * glm::orientate4(rotation)
+//                  * glm::translate(glm::mat4{1.0f},glm::vec3 {0,1.75,0})
+//                  * glm::scale(glm::mat4{1.0f}, scale);
+//
+//    child->update(scene, dt, rotation);
+//    child->render(scene);
+//
+//    return true;
+//}
 
-    child->update(scene, dt, rotation);
-    child->render(scene);
+bool MinuteHand::update(Scene &scene, float dt, glm::mat4 modelMatrixOfParent) {
+    modelMatrix = modelMatrixOfParent;
+    rotation.x = dt/60;
+//    std::cout<<glm::to_string(modelMatrix)<<std::endl;
+
+    modelMatrix =
+                  glm::translate(glm::mat4(1.0f), position)
+                  * (glm::orientate4(rotation) * modelMatrixOfParent[1][1])
+                  * glm::translate(glm::mat4{1.0f}, glm::vec3{0, 1.75, 0})
+                  * glm::scale(glm::mat4(1.0f), scale);
+//    rotation.x = dt / 60;
+//    modelMatrix.operator*=(modelMatrixOfParent);
+//    modelMatrix = glm::translate(glm::mat4{1.0f}, position)
+//                  * glm::orientate4(rotation)
+//                  * glm::translate(glm::mat4{1.0f}, glm::vec3{0, 1.75, 0})
+//                  * glm::scale(glm::mat4{1.0f}, scale);
+
+//    child->update(scene, dt, modelMatrix);
+//    child->render(scene);
 
     return true;
 }

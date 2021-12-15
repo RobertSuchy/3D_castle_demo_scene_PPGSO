@@ -25,6 +25,20 @@ SecondHand::SecondHand() {
     child->position.z = -39.75f;
 }
 
+//bool SecondHand::update(Scene &scene, float dt) {
+//    age += dt;
+//    rotation.x = -age * 6;
+//    modelMatrix = glm::translate(glm::mat4{1.0f}, position)
+//                  * glm::orientate4(rotation)
+//                  * glm::translate(glm::mat4{1.0f},glm::vec3 {0,1.75f,0})
+//                  * glm::scale(glm::mat4{1.0f}, scale);
+//
+//    child->update(scene, dt, rotation);
+//    child->render(scene);
+//
+//    return true;
+//}
+
 bool SecondHand::update(Scene &scene, float dt) {
     age += dt;
     rotation.x = -age * 6;
@@ -33,7 +47,7 @@ bool SecondHand::update(Scene &scene, float dt) {
                   * glm::translate(glm::mat4{1.0f},glm::vec3 {0,1.75f,0})
                   * glm::scale(glm::mat4{1.0f}, scale);
 
-    child->update(scene, dt, rotation);
+    child->update(scene, dt, modelMatrix);
     child->render(scene);
 
     return true;
