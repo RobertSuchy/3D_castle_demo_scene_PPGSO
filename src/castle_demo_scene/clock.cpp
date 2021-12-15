@@ -15,10 +15,17 @@ Clock::Clock() {
 
     if (!shader) shader = std::make_unique<ppgso::Shader>(color_vert_glsl, color_frag_glsl);
     if (!mesh) mesh = std::make_unique<ppgso::Mesh>("sphere.obj");
+
+    // pridanie sekundovej ručičky
+    secondHand = std::make_unique<SecondHand>();
+    secondHand->position.x = -97.5f;
+    secondHand->position.y = 27.7f;
+    secondHand->position.z = -39.75f;
 }
 
 bool Clock::update(Scene &scene, float dt) {
-
+    secondHand->update(scene, dt);
+    secondHand->render(scene);
 
     generateModelMatrix();
     return true;

@@ -112,27 +112,6 @@ private:
         clock->position.z = -39.75f;
         scene.objects.push_back(move(clock));
 
-//        // pridanie hodinovej ručičky do scény
-//        auto hourHand = std::make_unique<HourHand>();
-//        hourHand->position.x = -97.5f;
-//        hourHand->position.y = 27.7f;
-//        hourHand->position.z = -39.75f;
-//        scene.objects.push_back(move(hourHand));
-//
-//        // pridanie minútovej ručičky do scény
-//        auto minuteHand = std::make_unique<MinuteHand>();
-//        minuteHand->position.x = -97.5f;
-//        minuteHand->position.y = 27.7f;
-//        minuteHand->position.z = -39.75f;
-//        scene.objects.push_back(move(minuteHand));
-//
-        // pridanie sekundovej ručičky do scény
-        auto secondHand = std::make_unique<SecondHand>();
-        secondHand->position.x = -97.5f;
-        secondHand->position.y = 27.7f;
-        secondHand->position.z = -39.75f;
-        scene.objects.push_back(move(secondHand));
-
         // pridanie oštepu do scény
         auto spear = std::make_unique<Spear>();
         spear->position.x = -55.0f;

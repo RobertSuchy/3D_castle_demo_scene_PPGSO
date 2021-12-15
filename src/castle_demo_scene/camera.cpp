@@ -163,8 +163,16 @@ void Camera::update(float dt) {
 //        };
 //        center = bezierPoint(points, ((float) age - 53.0f) / 7.0f);
 //    }
+//    if (age <= 3.0f) {
+//        points = {
+//                glm::vec3 {0.0f, 10.0f, -100.0f},
+//                glm::vec3 {0.0f, 10.0f, -100.0f}
+//        };
+//        center = bezierPoint(points, ((float) age - 53.0f) / 3.0f);
+//    }
+
 //    else {
-//        center = {-98.5f, 24.5f, -39.75f};
+        center = {-98.5f, 24.5f, -39.75f};
 //    }
     viewMatrix = lookAt(eye, center, glm::vec3(0.0, 1.0, 0.0));
 }

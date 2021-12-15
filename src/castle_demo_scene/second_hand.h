@@ -10,6 +10,8 @@ private:
     static std::unique_ptr<ppgso::Shader> shader;
     static std::unique_ptr<ppgso::Texture> texture;
 
+    float age{0.0f};
+
     std::unique_ptr<MinuteHand> child;
 
 public:SecondHand();
