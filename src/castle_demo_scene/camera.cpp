@@ -10,7 +10,7 @@ Camera::Camera(float fow, float ratio, float near, float far) {
 }
 
 void Camera::update(float dt) {
-    age += dt * 100;
+    age += dt;
 
     // priblíženie sa k hradu
     if (age <= approachTime) {
