@@ -16,11 +16,13 @@
 #include "flag.h"
 #include "bird.h"
 
-const unsigned int SIZE = 1024;
+const unsigned int SCREEN_SIZE_X = 1920;
+const unsigned int SCREEN_SIZE_Y = 1080;
 
 class SceneWindow : public ppgso::Window {
 private:
     Scene scene;
+    float ratio = float(SCREEN_SIZE_X) / float(SCREEN_SIZE_Y);
     bool animate = true;
 
     void pushTrees(float positionX, float positionZ) {
@@ -53,7 +55,7 @@ private:
         scene.objects.clear();
 
         // vytvorenie a pridanie kamery do scény
-        auto camera = std::make_unique<Camera>(60.0f, 1.0f, 0.1f, 20000.0f);
+        auto camera = std::make_unique<Camera>(45.0f, ratio, 0.1f, 20000.0f);
         scene.camera = move(camera);
 
         // pridanie terénu do scény
@@ -118,7 +120,7 @@ private:
     }
 
 public:
-    SceneWindow() : Window{"castle_demo_scene", SIZE, SIZE} {
+    SceneWindow() : Window{"castle_demo_scene", SCREEN_SIZE_X, SCREEN_SIZE_Y} {
         glfwSetInputMode(window, GLFW_STICKY_KEYS, 1);
 
         glEnable(GL_DEPTH_TEST);
