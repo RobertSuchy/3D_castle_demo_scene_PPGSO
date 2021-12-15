@@ -10,9 +10,7 @@ Camera::Camera(float fow, float ratio, float near, float far) {
 }
 
 void Camera::update(float dt) {
-//    eyeX = std::sin(glfwGetTime()) * radius;
-//    eyeZ = std::cos(glfwGetTime()) * radius;
-    age += dt * 1.0;
+    age += dt * 100;
 
     // priblíženie sa k hradu
     if (age <= approachTime) {
@@ -274,9 +272,9 @@ void Camera::update(float dt) {
     else if (age > 119.0f) {
         eye.x = -38;
         eye.y = 106;
-        eye.z = 250;
+        eye.z = 450;
         center.x = -38;
-        center.y = 106;
+        center.y = 130;
         center.z = 105;
     }
     viewMatrix = lookAt(eye, center, glm::vec3(0.0, 1.0, 0.0));

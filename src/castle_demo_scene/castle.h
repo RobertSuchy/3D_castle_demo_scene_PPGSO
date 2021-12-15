@@ -9,6 +9,8 @@ private:
     static std::unique_ptr<ppgso::Mesh> mesh;
     static std::unique_ptr<ppgso::Shader> shader;
     static std::unique_ptr<ppgso::Texture> texture;
+    static ppgso::Shader convolutionShader;
+    float age{0.0f};
 
 public:Castle();
 

@@ -11,42 +11,28 @@ out vec4 FragmentColor;
 void main(void)
 {
 
-  // Example filters
-//  float[25] kernel = float[] (
-//            4.0,  2.0,  6.0,  4.0, 3.0,
-//            4.0, -16.0, 24.0, 16.0, 4.0,
-//            6.0, 24.0, -36.0, 24.0, 6.0,
-//            4.0, 16.0, 24.0, -16.0, 4.0,
-//            1.0,  4.0,  6.0,  4.0, 1.0);
-//    float kernel[9] = float[](
-//    -1, -1, -1,
-//    -1,  9, -1,
-//    -1, -1, -1
-//    );
+    //  float[25] kernel = float[] (
+    //            4.0,  2.0,  6.0,  4.0, 3.0,
+    //            4.0, -16.0, 24.0, 16.0, 4.0,
+    //            6.0, 24.0, -36.0, 24.0, 6.0,
+    //            4.0, 16.0, 24.0, -16.0, 4.0,
+    //            1.0,  4.0,  6.0,  4.0, 1.0);
+
     float kernel[9] = float[](
-    -20, -1, 0,
-    -20, 63, -1,
-    -20, -1, 0
-    );
+                    1.0, 1.0, 1.0,
+                    1.0, -8.0, 1.0,
+                    1.0, 1.0, 1.0 );
 
+    int index = 0;
+    vec4 color = vec4(0);
+    float factor = 1.0;
+    float bias = 0.0;
 
-//  float[25] kernel = float[] (
-//            0.0,  1.0,  1.0,  1.0, 1.0,
-//           -1.0,  0.0,  1.0,  1.0, 1.0,
-//           -1.0, -1.0,  0.0,  1.0, 1.0,
-//           -1.0, -1.0, -1.0,  0.0, 1.0,
-//           -1.0, -1.0, -1.0, -1.0, 0.0);
-
-  int index = 0;
-  vec4 color = vec4(0);
-  float factor = 1.0;
-  float bias = 0.0;
-
-  for (int i = -2; i <= 2; i++) {
-    for (int j = -2; j <= 2; j++) {
-      vec2 shift = vec2(i,j) / textureSize(Texture,0);
-      color += kernel[index++] * texture(Texture, vec2(texCoord.x, 1.0 - texCoord.y) + shift);
+    for (int i = -2; i <= 2; i++) {
+        for (int j = -2; j <= 2; j++) {
+            vec2 shift = vec2(i, j) / textureSize(Texture, 0);
+            color += kernel[index++] * texture(Texture, vec2(texCoord.x, 1.0 - texCoord.y) + shift);
+        }
     }
-  }
-  FragmentColor = color / factor + vec4(bias, bias, bias, 1);
+    FragmentColor = color / factor + vec4(bias, bias, bias, 1);
 }

@@ -4,6 +4,9 @@
 #include <shaders/diffuse_vert_glsl.h>
 #include <shaders/diffuse_frag_glsl.h>
 
+#include <shaders/convolution_vert_glsl.h>
+#include <shaders/convolution_frag_glsl.h>
+
 std::unique_ptr<ppgso::Mesh> Castle::mesh;
 std::unique_ptr<ppgso::Texture> Castle::texture;
 std::unique_ptr<ppgso::Shader> Castle::shader;
@@ -17,6 +20,10 @@ Castle::Castle() {
 }
 
 bool Castle::update(Scene &scene, float dt) {
+    age += dt;
+    if (age > 109.0f) {
+        shader = std::make_unique<ppgso::Shader>(convolution_vert_glsl, convolution_frag_glsl);
+    }
     generateModelMatrix();
     return true;
 }

@@ -1,8 +1,11 @@
-#include <iostream>
 #include <map>
-#include <list>
 
 #include <ppgso/ppgso.h>
+#include <shaders/texture_vert_glsl.h>
+#include <shaders/texture_frag_glsl.h>
+
+#include <shaders/grayscale_frag_glsl.h>
+#include <shaders/grayscale_vert_glsl.h>
 
 #include "camera.h"
 #include "scene.h"
@@ -23,8 +26,16 @@ const unsigned int SCREEN_SIZE_Y = 1080;
 class SceneWindow : public ppgso::Window {
 private:
     Scene scene;
+    float age {0.0f};
     float ratio = float(SCREEN_SIZE_X) / float(SCREEN_SIZE_Y);
-    bool animate = true;
+    bool postIsOff = true;
+
+    ppgso::Shader grayScaleShader = {grayscale_vert_glsl, grayscale_frag_glsl};
+    ppgso::Mesh quadMesh = {"quad.obj"};
+    ppgso::Texture quadTexture = {SCREEN_SIZE_X, SCREEN_SIZE_Y};
+
+    GLuint fbo = 0;
+    GLuint rbo = 0;
 
     void pushTrees(float positionX, float positionZ) {
         auto tree = std::make_unique<Tree>();
@@ -136,15 +147,74 @@ public:
         initScene();
     }
 
+    void postprocessing() {
+        glEnable(GL_DEPTH_TEST);
+        glDepthFunc(GL_LEQUAL);
+
+        quadTexture.bind();
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+
+        // Initialize framebuffer, its color texture (the sphere will be rendered to it) and its render buffer for depth info storage
+        glGenFramebuffers(1, &fbo);
+        glBindFramebuffer(GL_FRAMEBUFFER, fbo);
+
+        // Set up render buffer that has a depth buffer and stencil buffer
+        glGenRenderbuffers(1, &rbo);
+        glBindRenderbuffer(GL_RENDERBUFFER, rbo);
+        glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, rbo);
+
+        // Associate the quadTexture with it
+        glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, quadTexture.image.width, quadTexture.image.height);
+        glFramebufferTexture(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, quadTexture.getTexture(), 0);
+
+        if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE) {
+            throw std::runtime_error("Cannot create framebuffer!");
+        }
+    }
+
     void onIdle() override {
         static auto time = (float) glfwGetTime();
-        float dt = animate ? (float) glfwGetTime() - time : 0;
+        float dt = (float) glfwGetTime() - time;
         time = (float) glfwGetTime();
+        age += dt;
 
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        if (age <= 122.0f) {
+            glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+            scene.update(dt);
+            scene.render();
+        }
+        else if (age > 122.0f && postIsOff) {
+            postprocessing();
+            postIsOff = false;
+        }
+        else {
+            glViewport(0, 0, SCREEN_SIZE_X, SCREEN_SIZE_X);
+            glBindFramebuffer(GL_FRAMEBUFFER, fbo);
 
-        scene.update(dt);
-        scene.render();
+            glClearColor(.5f, .7f, .5f, 0);
+            glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+            scene.update(dt);
+            scene.render();
+
+            resetViewport();
+            glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
+            auto quadProjectionMatrix = glm::perspective(45.0f, (float) SCREEN_SIZE_Y / (float) SCREEN_SIZE_X, 0.1f, 10.0f);
+
+            auto quadViewMatrix = glm::translate(glm::mat4{1.0f}, {0.0f, 0.0f, -1.5f});
+
+            auto quadModelMatrix = glm::mat4{1.0f};
+
+            grayScaleShader.use();
+            grayScaleShader.setUniform("ProjectionMatrix", quadProjectionMatrix);
+            grayScaleShader.setUniform("ViewMatrix", quadViewMatrix);
+            grayScaleShader.setUniform("ModelMatrix", quadModelMatrix);
+            grayScaleShader.setUniform("Texture", quadTexture);
+
+            quadMesh.render();
+        }
     }
 };
 
