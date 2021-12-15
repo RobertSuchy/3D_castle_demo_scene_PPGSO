@@ -1,6 +1,5 @@
 #include "minute_hand.h"
 #include "scene.h"
-#include <glm/gtx/string_cast.hpp>
 
 #include <glm/gtx/euler_angles.hpp>
 

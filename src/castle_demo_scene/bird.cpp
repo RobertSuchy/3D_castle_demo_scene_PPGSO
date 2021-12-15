@@ -1,6 +1,9 @@
 #include "bird.h"
 #include "scene.h"
 
+#include <glm/gtx/euler_angles.hpp>
+#include <glm/gtx/string_cast.hpp>
+
 #include <shaders/color_vert_glsl.h>
 #include <shaders/color_frag_glsl.h>
 
@@ -15,8 +18,30 @@ Bird::Bird() {
 }
 
 bool Bird::update(Scene &scene, float dt) {
+    age += dt;
+    Keyframe currentKeyframe = keyframes[currentKeyframeIndex];
+    if (currentKeyframe.age == 0) {
+        return false;
+    }
 
-    generateModelMatrix();
+    glm::mat4 currentModelMatrix = glm::translate(glm::mat4{1.0f}, currentKeyframe.pos)
+                             * glm::orientate4(currentKeyframe.rot)
+                             * glm::scale(glm::mat4{1.0f}, currentKeyframe.scl);
+
+    Keyframe nextKeyframe = keyframes[currentKeyframeIndex + 1];
+    glm::mat4 nextModelMatrix = glm::translate(glm::mat4{1.0f}, nextKeyframe.pos)
+                             * glm::orientate4(nextKeyframe.rot)
+                             * glm::scale(glm::mat4{1.0f}, nextKeyframe.scl);
+
+    auto prevAge = 0.0f;
+    if (currentKeyframeIndex > 0) {
+        prevAge = keyframes[currentKeyframeIndex - 1].age;
+    }
+    modelMatrix = glm::mix(currentModelMatrix, nextModelMatrix, (age - prevAge) / (currentKeyframe.age - prevAge));
+
+    if (age > currentKeyframe.age) {
+        currentKeyframeIndex++;
+    }
     return true;
 }
 

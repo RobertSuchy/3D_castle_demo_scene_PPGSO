@@ -24,55 +24,55 @@ void Camera::update(float dt) {
 //    center.z = 1975.0f - 500 * age * std::cos(M_PI / 8);
 
     // priblíženie sa k hradu
-//    if (age <= approachTime) {
-//        points = {
-//                glm::vec3 {radius + 3000.0f, 1000.0f, 0.0f},
-//                glm::vec3 {radius + 2000.0f, 600.0f, 0.0f},
-//                glm::vec3 {radius + 1000.0f, 400.0f, 0.0f},
-//                glm::vec3 {radius, 250.0f, 0.0f}
-//        };
-//        eye = bezierPoint(points, ((float) age) / approachTime);
-//    }
-//    // rotácia okolo hradu 1/4
-//    else if (age <= approachTime + quarterTime) {
-//        points = {
-//                glm::vec3 {radius, 250.0f, 0.0f},
-//                glm::vec3 {radius * std::sin(M_PI / 3.0f), 250.0f, -radius * std::sin(M_PI / 6.0f)},
-//                glm::vec3 {radius * std::sin(M_PI / 6.0f), 250.0f, -radius * std::sin(M_PI / 3.0f)},
-//                glm::vec3 {0.0f, 250.0f, -radius}
-//        };
-//        eye = bezierPoint(points, ((float) age - approachTime) / quarterTime);
-//    }
-//    // rotácia okolo hradu 2/4
-//    else if (age <= approachTime + 2 * quarterTime) {
-//        points = {
-//                glm::vec3 {0.0f, 250.0f, -radius},
-//                glm::vec3 {-radius * std::sin(M_PI / 6.0f), 250.0f, -radius * std::sin(M_PI / 3.0f)},
-//                glm::vec3 {-radius * std::sin(M_PI / 3.0f), 250.0f, -radius * std::sin(M_PI / 6.0f)},
-//                glm::vec3 {-radius, 250.0f, 0.0f}
-//        };
-//        eye = bezierPoint(points, ((float) age - (approachTime + quarterTime)) / quarterTime);
-//    }
-//    // rotácia okolo hradu 3/4
-//    else if (age <= approachTime + 3 * quarterTime) {
-//        points = {
-//                glm::vec3 {-radius, 250.0f, 0.0f},
-//                glm::vec3 {-radius * std::sin(M_PI / 3.0f), 250.0f, radius * std::sin(M_PI / 6.0f)},
-//                glm::vec3 {-radius * std::sin(M_PI / 6.0f), 250.0f, radius * std::sin(M_PI / 3.0f)},
-//                glm::vec3 {0.0f, 250.0f, radius}
-//        };
-//        eye = bezierPoint(points, ((float) age - (approachTime + 2 * quarterTime)) / quarterTime);
-//    }
-//    // rotácia okolo hradu 4/4
-//    else if (age <= approachTime + 4 * quarterTime) {
-//        points = {
-//                glm::vec3 {0.0f, 250.0f, radius},
-//                glm::vec3 {radius * std::sin(M_PI / 6.0f), 250.0f, radius * std::sin(M_PI / 3.0f)},
-//                glm::vec3 {radius * std::sin(M_PI / 3.0f), 250.0f, radius * std::sin(M_PI / 6.0f)},
-//                glm::vec3 {radius, 250.0f, 0.0f}
-//        };
-//        eye = bezierPoint(points, ((float) age - (approachTime + 3 * quarterTime)) / quarterTime);
-//    }
+    if (age <= approachTime) {
+        points = {
+                glm::vec3 {radius + 3000.0f, 1000.0f, 0.0f},
+                glm::vec3 {radius + 2000.0f, 600.0f, 0.0f},
+                glm::vec3 {radius + 1000.0f, 400.0f, 0.0f},
+                glm::vec3 {radius, 250.0f, 0.0f}
+        };
+        eye = bezierPoint(points, ((float) age) / approachTime);
+    }
+    // rotácia okolo hradu 1/4
+    else if (age <= approachTime + quarterTime) {
+        points = {
+                glm::vec3 {radius, 250.0f, 0.0f},
+                glm::vec3 {radius * std::sin(M_PI / 3.0f), 250.0f, -radius * std::sin(M_PI / 6.0f)},
+                glm::vec3 {radius * std::sin(M_PI / 6.0f), 250.0f, -radius * std::sin(M_PI / 3.0f)},
+                glm::vec3 {0.0f, 250.0f, -radius}
+        };
+        eye = bezierPoint(points, ((float) age - approachTime) / quarterTime);
+    }
+    // rotácia okolo hradu 2/4
+    else if (age <= approachTime + 2 * quarterTime) {
+        points = {
+                glm::vec3 {0.0f, 250.0f, -radius},
+                glm::vec3 {-radius * std::sin(M_PI / 6.0f), 250.0f, -radius * std::sin(M_PI / 3.0f)},
+                glm::vec3 {-radius * std::sin(M_PI / 3.0f), 250.0f, -radius * std::sin(M_PI / 6.0f)},
+                glm::vec3 {-radius, 250.0f, 0.0f}
+        };
+        eye = bezierPoint(points, ((float) age - (approachTime + quarterTime)) / quarterTime);
+    }
+    // rotácia okolo hradu 3/4
+    else if (age <= approachTime + 3 * quarterTime) {
+        points = {
+                glm::vec3 {-radius, 250.0f, 0.0f},
+                glm::vec3 {-radius * std::sin(M_PI / 3.0f), 250.0f, radius * std::sin(M_PI / 6.0f)},
+                glm::vec3 {-radius * std::sin(M_PI / 6.0f), 250.0f, radius * std::sin(M_PI / 3.0f)},
+                glm::vec3 {0.0f, 250.0f, radius}
+        };
+        eye = bezierPoint(points, ((float) age - (approachTime + 2 * quarterTime)) / quarterTime);
+    }
+    // rotácia okolo hradu 4/4
+    else if (age <= approachTime + 4 * quarterTime) {
+        points = {
+                glm::vec3 {0.0f, 250.0f, radius},
+                glm::vec3 {radius * std::sin(M_PI / 6.0f), 250.0f, radius * std::sin(M_PI / 3.0f)},
+                glm::vec3 {radius * std::sin(M_PI / 3.0f), 250.0f, radius * std::sin(M_PI / 6.0f)},
+                glm::vec3 {radius, 250.0f, 0.0f}
+        };
+        eye = bezierPoint(points, ((float) age - (approachTime + 3 * quarterTime)) / quarterTime);
+    }
 //    // nastavenie kamery pred bránu
 //    else if (switchScene) {
 //        eye.x = 220.0f;
@@ -163,15 +163,17 @@ void Camera::update(float dt) {
 //        };
 //        center = bezierPoint(points, ((float) age - 53.0f) / 7.0f);
 //    }
+//    eye = glm::vec3{0.0f, 10.0f, -36.0f};
 //    if (age <= 3.0f) {
 //        points = {
-//                glm::vec3 {0.0f, 10.0f, -100.0f},
-//                glm::vec3 {0.0f, 10.0f, -100.0f}
+//                glm::vec3{0.0f, 10.0f, -100.0f},
+//                glm::vec3{-98.5f, 27.75f, -39.75f}
 //        };
-//        center = bezierPoint(points, ((float) age - 53.0f) / 3.0f);
+//        center = bezierPoint(points, ((float) age - 0.0f) / 3.0f);
 //    }
 
 //    else {
+//        center = {-98.5f, 27.75f, -39.75f};
 //        center = {-98.5f, 24.5f, -39.75f};
 //    }
     viewMatrix = lookAt(eye, center, glm::vec3(0.0, 1.0, 0.0));

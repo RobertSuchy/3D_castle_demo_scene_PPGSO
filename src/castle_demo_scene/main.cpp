@@ -110,10 +110,10 @@ private:
 //        bird->position.x = -98.5f;
 //        bird->position.y = 27.75f;
 //        bird->position.z = -39.75f;
-        bird->position.x = 3400.0f;
-        bird->position.y = 1000.0f;
-        bird->position.z = 0.0f;
-        bird->rotation.z = M_PI/2;
+//        bird->position.x = 3400.0f;
+//        bird->position.y = 1000.0f;
+//        bird->position.z = 0.0f;
+//        bird->rotation.z = M_PI/2;
         scene.objects.push_back(move(bird));
     }
 

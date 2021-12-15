@@ -19,6 +19,8 @@ public:
 //    glm::vec3 eye = { -150.0f, 50.0f, 125.0f};
 //    glm::vec3 center = { 50.0f, 40.0f, 100.0f};
 
+//    glm::vec3 center = {0.0f, 0.0f, 0.0f};
+
 //    glm::vec3 eye = {-50.0f, 24.5f, -39.75f};
 //    glm::vec3 center = {-98.5f, 24.5f, -39.75f};
 
