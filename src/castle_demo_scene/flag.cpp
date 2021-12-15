@@ -1,7 +1,8 @@
 #include "flag.h"
 #include "waving_flag.h"
-#include <shaders/diffuse_vert_glsl.h>
-#include <shaders/diffuse_frag_glsl.h>
+
+#include <shaders/color_vert_glsl.h>
+#include <shaders/color_frag_glsl.h>
 
 #include <cmath>
 
@@ -12,8 +13,7 @@ std::unique_ptr<ppgso::Shader> Flag::shader;
 Flag::Flag() {
     scale.y *= 50.0f;
 
-    if (!shader) shader = std::make_unique<ppgso::Shader>(diffuse_vert_glsl, diffuse_frag_glsl);
-    if (!texture) texture = std::make_unique<ppgso::Texture>(ppgso::image::loadBMP("stars.bmp"));
+    if (!shader) shader = std::make_unique<ppgso::Shader>(color_vert_glsl, color_frag_glsl);
     if (!mesh) mesh = std::make_unique<ppgso::Mesh>("cube.obj");
 }
 
@@ -53,7 +53,7 @@ void Flag::render(Scene &scene) {
     shader->setUniform("ViewMatrix", scene.camera->viewMatrix);
 
     shader->setUniform("ModelMatrix", modelMatrix);
-    shader->setUniform("Texture", *texture);
+    shader->setUniform("OverallColor", glm::vec3{0.0f, 0.0f, 0.0f});
 
     mesh->render();
 }

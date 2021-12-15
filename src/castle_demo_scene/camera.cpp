@@ -14,14 +14,15 @@ void Camera::update(float dt) {
 //    eyeZ = std::cos(glfwGetTime()) * radius;
     age += dt * 1.0;
 
-    eye.x = -55.0f;
-    eye.y = 500 * age * std::sin(M_PI / 8) - 9.81 * 9 * pow(age, 2) / 2 + 10;
-    eye.z = 1975.0f - 500 * age * std::cos(M_PI / 8) + 20;
-    center.x = -55.0f;
+//    eye.x = -55.0f;
+//    eye.y = 500 * age * std::sin(M_PI / 8) - 9.81 * 9 * pow(age, 2) / 2 + 10;
+//    eye.z = 1975.0f - 500 * age * std::cos(M_PI / 8) + 20;
+//    center.x = -55.0f;
 //    center.y = 500 * age * std::sin(M_PI / 8) - 9.81 * 9 * pow(age, 2) / 2;
 //    center.x = -55.0f;
 //    center.y = 500 * age * std::sin(M_PI / 8) - 9.81 * 9 * pow(age, 2) / 2 + 5;
 //    center.z = 1975.0f - 500 * age * std::cos(M_PI / 8);
+
 //    // priblíženie sa k hradu
 //    if (age <= approachTime) {
 //        points = {
@@ -161,6 +162,9 @@ void Camera::update(float dt) {
 //                glm::vec3 {0.0f, 10.0f, -100.0f}
 //        };
 //        center = bezierPoint(points, ((float) age - 53.0f) / 7.0f);
+//    }
+//    else {
+//        center = {-98.5f, 24.5f, -39.75f};
 //    }
     viewMatrix = lookAt(eye, center, glm::vec3(0.0, 1.0, 0.0));
 }

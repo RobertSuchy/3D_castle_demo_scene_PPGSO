@@ -106,7 +106,34 @@ add_executable(castle_demo_scene
         src/castle_demo_scene/scene.cpp
         src/castle_demo_scene/camera.cpp
         src/castle_demo_scene/generator.cpp
-        src/castle_demo_scene/castle.cpp src/castle_demo_scene/castle.h src/castle_demo_scene/ground.cpp src/castle_demo_scene/ground.h src/castle_demo_scene/tree.cpp src/castle_demo_scene/tree.h src/castle_demo_scene/fireplace.cpp src/castle_demo_scene/fireplace.h src/castle_demo_scene/fire_particle.cpp src/castle_demo_scene/fire_particle.h src/castle_demo_scene/background.cpp src/castle_demo_scene/background.h src/castle_demo_scene/flag.cpp src/castle_demo_scene/flag.h src/castle_demo_scene/waving_flag.cpp src/castle_demo_scene/waving_flag.h src/castle_demo_scene/spear.cpp src/castle_demo_scene/spear.h src/castle_demo_scene/wall_particle.cpp src/castle_demo_scene/wall_particle.h)
+        src/castle_demo_scene/castle.cpp
+        src/castle_demo_scene/castle.h
+        src/castle_demo_scene/ground.cpp
+        src/castle_demo_scene/ground.h
+        src/castle_demo_scene/tree.cpp
+        src/castle_demo_scene/tree.h
+        src/castle_demo_scene/fireplace.cpp
+        src/castle_demo_scene/fireplace.h
+        src/castle_demo_scene/fire_particle.cpp
+        src/castle_demo_scene/fire_particle.h
+        src/castle_demo_scene/background.cpp
+        src/castle_demo_scene/background.h
+        src/castle_demo_scene/flag.cpp
+        src/castle_demo_scene/flag.h
+        src/castle_demo_scene/waving_flag.cpp
+        src/castle_demo_scene/waving_flag.h
+        src/castle_demo_scene/spear.cpp
+        src/castle_demo_scene/spear.h
+        src/castle_demo_scene/wall_particle.cpp
+        src/castle_demo_scene/wall_particle.h
+        src/castle_demo_scene/clock.cpp
+        src/castle_demo_scene/clock.h
+        src/castle_demo_scene/hour_hand.cpp
+        src/castle_demo_scene/hour_hand.h
+        src/castle_demo_scene/minute_hand.cpp
+        src/castle_demo_scene/minute_hand.h
+        src/castle_demo_scene/second_hand.cpp
+        src/castle_demo_scene/second_hand.h)
 target_link_libraries(castle_demo_scene ppgso shaders)
 install(TARGETS castle_demo_scene DESTINATION .)
 add_custom_command(TARGET castle_demo_scene POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_SOURCE_DIR}/data/ ${CMAKE_CURRENT_BINARY_DIR})

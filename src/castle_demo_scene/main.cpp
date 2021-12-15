@@ -11,6 +11,10 @@
 #include "tree.h"
 #include "fireplace.h"
 #include "generator.h"
+#include "clock.h"
+#include "hour_hand.h"
+#include "minute_hand.h"
+#include "second_hand.h"
 #include "background.h"
 #include "flag.h"
 #include "spear.h"
@@ -55,7 +59,7 @@ private:
         scene.objects.clear();
 
         // vytvorenie a pridanie kamery do scény
-        auto camera = std::make_unique<Camera>(60.0f, 1.0f, 0.1f, 15000.0f);
+        auto camera = std::make_unique<Camera>(60.0f, 1.0f, 0.1f, 20000.0f);
         scene.camera = move(camera);
 
         // pridanie terénu do scény
@@ -96,14 +100,42 @@ private:
         auto generator = std::make_unique<Generator>();
         scene.objects.push_back(move(generator));
         auto flag = std::make_unique<Flag>();
-        flag->position.x = -50;
-        flag->position.y = 90;
-        flag->position.z = 105;
+        flag->position.x = -50.0f;
+        flag->position.y = 90.0f;
+        flag->position.z = 105.0f;
         scene.objects.push_back(move(flag));
+
+        // pridanie hodín do scény
+        auto clock = std::make_unique<Clock>();
+        clock->position.x = -98.5f;
+        clock->position.y = 27.75f;
+        clock->position.z = -39.75f;
+        scene.objects.push_back(move(clock));
+
+//        // pridanie hodinovej ručičky do scény
+//        auto hourHand = std::make_unique<HourHand>();
+//        hourHand->position.x = -97.5f;
+//        hourHand->position.y = 27.7f;
+//        hourHand->position.z = -39.75f;
+//        scene.objects.push_back(move(hourHand));
+//
+//        // pridanie minútovej ručičky do scény
+//        auto minuteHand = std::make_unique<MinuteHand>();
+//        minuteHand->position.x = -97.5f;
+//        minuteHand->position.y = 27.7f;
+//        minuteHand->position.z = -39.75f;
+//        scene.objects.push_back(move(minuteHand));
+//
+        // pridanie sekundovej ručičky do scény
+        auto secondHand = std::make_unique<SecondHand>();
+        secondHand->position.x = -97.5f;
+        secondHand->position.y = 27.7f;
+        secondHand->position.z = -39.75f;
+        scene.objects.push_back(move(secondHand));
 
         // pridanie oštepu do scény
         auto spear = std::make_unique<Spear>();
-        spear->position.x = -55;
+        spear->position.x = -55.0f;
         scene.objects.push_back(move(spear));
     }
 
