@@ -5,7 +5,6 @@
 #include <shaders/color_frag_glsl.h>
 
 std::unique_ptr<ppgso::Mesh> FireParticle::mesh;
-std::unique_ptr<ppgso::Texture> FireParticle::texture;
 std::unique_ptr<ppgso::Shader> FireParticle::shader;
 
 FireParticle::FireParticle() {

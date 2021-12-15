@@ -16,11 +16,9 @@ class FireParticle final : public Object {
 private:
     static std::unique_ptr<ppgso::Mesh> mesh;
     static std::unique_ptr<ppgso::Shader> shader;
-    static std::unique_ptr<ppgso::Texture> texture;
 
     float age{0.0f};
 
-//    float gravity = 9.81;
     glm::vec3 gravity{0, -0.01f, 0};
     glm::vec3 wind{0.01f, 0.04f, 0.01f};
 

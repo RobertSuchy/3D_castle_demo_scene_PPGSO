@@ -10,6 +10,7 @@
 #include "ground.h"
 #include "tree.h"
 #include "fireplace.h"
+#include "fireplace_shadow.h"
 #include "generator.h"
 #include "clock.h"
 #include "background.h"
@@ -95,6 +96,12 @@ private:
         auto fireplace = std::make_unique<Fireplace>();
         fireplace->position.z = -75;
         scene.objects.push_back(move(fireplace));
+
+        // pridanie tieňa ohniska do scény
+        auto fireplaceShadow = std::make_unique<FireplaceShadow>();
+        fireplaceShadow->position.y = 2;
+        fireplaceShadow->position.z = -80;
+        scene.objects.push_back(move(fireplaceShadow));
 
         // pridanie generátora do scény
         auto generator = std::make_unique<Generator>();

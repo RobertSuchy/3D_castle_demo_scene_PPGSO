@@ -17,7 +17,6 @@ Fireplace::Fireplace() {
 }
 
 bool Fireplace::update(Scene &scene, float dt) {
-
     generateModelMatrix();
     return true;
 }
@@ -34,5 +33,3 @@ void Fireplace::render(Scene &scene) {
     shader->setUniform("Texture", *texture);
     mesh->render();
 }
-
-
